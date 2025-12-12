@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VetCalc Icon Generator</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background: #f5f5f5; }
+        .icon-preview { display: inline-block; margin: 10px; text-align: center; }
+        canvas { border: 1px solid #ccc; background: white; }
+        button { padding: 10px 20px; font-size: 16px; margin: 10px; cursor: pointer; }
+        a { display: block; margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <h1>VetCalc Icon Generator</h1>
+    <p>Click "Generate Icons" then right-click each icon to save it with the correct filename.</p>
+    <button onclick="generateIcons()">Generate Icons</button>
+    <div id="icons"></div>
+
+    <script>
+        const sizes = [72, 96, 128, 144, 152, 192, 384, 512];
+
+        function drawIcon(ctx, size) {
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#1a5f4a');
+            gradient.addColorStop(1, '#134536');
+
+            // Rounded rectangle background
+            const radius = size * 0.1875; // ~96px radius on 512px
+            ctx.beginPath();
+            ctx.roundRect(0, 0, size, size, radius);
+            ctx.fillStyle = gradient;
+            ctx.fill();
+
+            // Cross
+            ctx.fillStyle = 'white';
+            const crossWidth = size * 0.156; // 80/512
+            const crossHeight = size * 0.625; // 320/512
+            const crossX = (size - crossWidth) / 2;
+            const crossY = size * 0.1875; // 96/512
+
+            // Vertical bar
+            ctx.beginPath();
+            ctx.roundRect(crossX, crossY, crossWidth, crossHeight, size * 0.023);
+            ctx.fill();
+
+            // Horizontal bar
+            ctx.beginPath();
+            ctx.roundRect(crossY, crossX, crossHeight, crossWidth, size * 0.023);
+            ctx.fill();
+        }
+
+        function generateIcons() {
+            const container = document.getElementById('icons');
+            container.innerHTML = '';
+
+            sizes.forEach(size => {
+                const div = document.createElement('div');
+                div.className = 'icon-preview';
+
+                const canvas = document.createElement('canvas');
+                canvas.width = size;
+                canvas.height = size;
+                canvas.style.width = Math.min(size, 200) + 'px';
+                canvas.style.height = Math.min(size, 200) + 'px';
+
+                const ctx = canvas.getContext('2d');
+                drawIcon(ctx, size);
+
+                const label = document.createElement('p');
+                label.textContent = `icon-${size}.png (${size}x${size})`;
+
+                const link = document.createElement('a');
+                link.href = canvas.toDataURL('image/png');
+                link.download = `icon-${size}.png`;
+                link.textContent = `Download icon-${size}.png`;
+
+                div.appendChild(canvas);
+                div.appendChild(label);
+                div.appendChild(link);
+                container.appendChild(div);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="UK veterinary drug dosage calculator for cats, dogs, rabbits, guinea pigs and other common species">
+    <meta name="theme-color" content="#1a5f4a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="VetCalc">
+
+    <title>VetCalc - Veterinary Drug Calculator</title>
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon.svg">
+    <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div id="splash-screen" class="splash-screen">
+        <div class="splash-content">
+            <div class="splash-icon">
+                <svg viewBox="0 0 100 100" class="splash-logo">
+                    <circle cx="50" cy="50" r="45" fill="#1a5f4a"/>
+                    <path d="M50 20 L50 80 M20 50 L80 50" stroke="white" stroke-width="8" stroke-linecap="round"/>
+                    <circle cx="50" cy="50" r="12" fill="white"/>
+                </svg>
+            </div>
+            <h1 class="splash-title">VetCalc</h1>
+            <p class="splash-subtitle">UK Veterinary Drug Calculator</p>
+            <div class="splash-loader">
+                <div class="loader-bar"></div>
+            </div>
+            <p class="splash-loading-text">Loading drug database...</p>
+        </div>
+    </div>
+
+    <!-- Update Banner -->
+    <div id="update-banner" class="update-banner hidden">
+        <div class="update-content">
+            <span class="update-icon">&#8635;</span>
+            <div class="update-text">
+                <strong>Update Available</strong>
+                <p>A new version is available. Update recommended for latest drug data.</p>
+            </div>
+            <div class="update-actions">
+                <button id="update-btn" class="btn btn-update">Update Now</button>
+                <button id="dismiss-update-btn" class="btn btn-dismiss">Later</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1>VetCalc</h1>
+            <p class="subtitle">UK Veterinary Drug Calculator</p>
+        </div>
+        <div class="offline-indicator" id="offline-indicator">
+            <span class="offline-dot"></span>
+            <span>Offline</span>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Warning Banner -->
+        <div class="warning-banner">
+            <strong>Important:</strong> Always verify calculations and consult product datasheets.
+            This tool is an aid only - professional judgement must be applied.
+        </div>
+
+        <!-- Species Selection -->
+        <section class="section">
+            <h2>1. Select Species</h2>
+            <div class="species-grid" id="species-grid">
+                <button class="species-btn" data-species="dog">
+                    <span class="species-icon">&#128054;</span>
+                    <span class="species-name">Dog</span>
+                </button>
+                <button class="species-btn" data-species="cat">
+                    <span class="species-icon">&#128049;</span>
+                    <span class="species-name">Cat</span>
+                </button>
+                <button class="species-btn" data-species="rabbit">
+                    <span class="species-icon">&#128048;</span>
+                    <span class="species-name">Rabbit</span>
+                </button>
+                <button class="species-btn" data-species="guinea_pig">
+                    <span class="species-icon">&#128057;</span>
+                    <span class="species-name">Guinea Pig</span>
+                </button>
+                <button class="species-btn" data-species="hamster">
+                    <span class="species-icon">&#128056;</span>
+                    <span class="species-name">Hamster</span>
+                </button>
+                <button class="species-btn" data-species="ferret">
+                    <span class="species-icon">&#129445;</span>
+                    <span class="species-name">Ferret</span>
+                </button>
+                <button class="species-btn" data-species="rat">
+                    <span class="species-icon">&#128000;</span>
+                    <span class="species-name">Rat</span>
+                </button>
+                <button class="species-btn" data-species="horse">
+                    <span class="species-icon">&#128014;</span>
+                    <span class="species-name">Horse</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Weight Input -->
+        <section class="section" id="weight-section">
+            <h2>2. Enter Weight</h2>
+            <div class="weight-input-group">
+                <input type="number"
+                       id="weight-input"
+                       class="weight-input"
+                       placeholder="0.00"
+                       step="0.01"
+                       min="0.01"
+                       inputmode="decimal">
+                <span class="weight-unit">kg</span>
+            </div>
+            <div class="weight-presets" id="weight-presets">
+                <!-- Populated by JavaScript based on species -->
+            </div>
+        </section>
+
+        <!-- Drug Selection -->
+        <section class="section" id="drug-section">
+            <h2>3. Select Drug</h2>
+            <div class="search-container">
+                <input type="text"
+                       id="drug-search"
+                       class="drug-search"
+                       placeholder="Search drugs...">
+            </div>
+            <div class="drug-categories" id="drug-categories">
+                <!-- Populated by JavaScript -->
+            </div>
+            <div class="drug-list" id="drug-list">
+                <!-- Populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Calculation Result -->
+        <section class="section result-section" id="result-section">
+            <h2>Calculation Result</h2>
+            <div class="result-card" id="result-card">
+                <div class="result-header">
+                    <span class="result-drug-name" id="result-drug-name">-</span>
+                    <span class="result-species" id="result-species">-</span>
+                </div>
+
+                <div class="result-dose" id="result-dose">
+                    <span class="dose-value">-</span>
+                    <span class="dose-unit"></span>
+                </div>
+
+                <div class="calculation-breakdown" id="calculation-breakdown">
+                    <h3>Calculation Breakdown</h3>
+                    <div class="calculation-steps" id="calculation-steps">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="result-notes" id="result-notes">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>VetCalc v<span id="app-version">1.0.0</span></p>
+        <p class="disclaimer">For professional veterinary use only. Always verify with product literature.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/drug-database.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registered:', registration.scope);
+
+                        // Check for updates on load
+                        registration.update();
+
+                        // Listen for new service worker
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    // New version available
+                                    showUpdateBanner(registration);
+                                }
+                            });
+                        });
+                    })
+                    .catch(err => console.log('ServiceWorker registration failed:', err));
+            });
+        }
+
+        function showUpdateBanner(registration) {
+            const banner = document.getElementById('update-banner');
+            const updateBtn = document.getElementById('update-btn');
+            const dismissBtn = document.getElementById('dismiss-update-btn');
+
+            banner.classList.remove('hidden');
+
+            updateBtn.addEventListener('click', () => {
+                if (registration.waiting) {
+                    registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+                }
+                window.location.reload();
+            });
+
+            dismissBtn.addEventListener('click', () => {
+                banner.classList.add('hidden');
+            });
+        }
+
+        // Online/Offline indicator
+        function updateOnlineStatus() {
+            const indicator = document.getElementById('offline-indicator');
+            if (navigator.onLine) {
+                indicator.classList.add('hidden');
+            } else {
+                indicator.classList.remove('hidden');
+            }
+        }
+
+        window.addEventListener('online', updateOnlineStatus);
+        window.addEventListener('offline', updateOnlineStatus);
+        updateOnlineStatus();
+    </script>
+</body>
+</html>
