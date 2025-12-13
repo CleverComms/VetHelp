@@ -1,4 +1,4 @@
-/* VetCalc - iOS Style Design */
+/* VetCalc - iOS Style Design with Color */
 
 :root {
     --primary: #007aff;
@@ -6,6 +6,11 @@
     --success: #34c759;
     --warning: #ff9500;
     --danger: #ff3b30;
+    --purple: #af52de;
+    --pink: #ff2d55;
+    --teal: #5ac8fa;
+    --indigo: #5856d6;
+
     --bg-primary: #f2f2f7;
     --bg-secondary: #ffffff;
     --bg-tertiary: rgba(120, 120, 128, 0.12);
@@ -59,25 +64,25 @@ body {
 
 /* Header */
 .header {
-    background: var(--bg-secondary);
-    padding: 12px 16px;
-    padding-top: calc(env(safe-area-inset-top, 0px) + 12px);
+    background: linear-gradient(135deg, #007aff 0%, #5856d6 100%);
+    padding: 14px 16px;
+    padding-top: calc(env(safe-area-inset-top, 0px) + 14px);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 0.5px solid var(--separator);
     position: sticky;
     top: 0;
     z-index: 100;
 }
 
 .header h1 {
-    font-size: 17px;
+    font-size: 18px;
     font-weight: 600;
+    color: white;
 }
 
 .offline-badge .badge {
-    background: var(--warning);
+    background: rgba(255, 255, 255, 0.25);
     color: white;
     padding: 3px 8px;
     border-radius: 8px;
@@ -114,13 +119,13 @@ body {
 
 /* Warning Block */
 .warning-block {
-    background: rgba(255, 204, 0, 0.15);
-    border: 1px solid rgba(255, 180, 0, 0.3);
+    background: linear-gradient(135deg, rgba(255, 149, 0, 0.15) 0%, rgba(255, 204, 0, 0.15) 100%);
+    border: 1px solid rgba(255, 149, 0, 0.3);
 }
 
 .warning-block p {
     font-size: 12px;
-    color: #8a6d00;
+    color: #996600;
 }
 
 /* Species & Category Scroll */
@@ -136,7 +141,8 @@ body {
 .species-scroll::-webkit-scrollbar,
 .category-scroll::-webkit-scrollbar { display: none; }
 
-.species-btn, .category-btn {
+/* Species Buttons with Colors */
+.species-btn {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -151,12 +157,13 @@ body {
     flex-shrink: 0;
 }
 
-.species-btn:active, .category-btn:active {
+.species-btn:active {
     transform: scale(0.95);
 }
 
-.species-btn.active, .category-btn.active {
-    background: rgba(0, 122, 255, 0.15);
+.species-btn.active {
+    background: linear-gradient(135deg, #007aff 0%, #5856d6 100%);
+    box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
 }
 
 .species-icon {
@@ -167,19 +174,38 @@ body {
 }
 
 .species-icon svg { width: 100%; height: 100%; }
-.species-btn.active .species-icon { color: var(--primary); }
+.species-btn.active .species-icon { color: white; }
 
-.species-name, .category-name {
+.species-name {
     font-size: 10px;
     font-weight: 500;
     color: var(--text-tertiary);
     white-space: nowrap;
 }
 
-.species-btn.active .species-name,
-.category-btn.active .category-name {
-    color: var(--primary);
+.species-btn.active .species-name {
+    color: white;
     font-weight: 600;
+}
+
+/* Category Buttons with Individual Colors */
+.category-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 72px;
+    padding: 10px 8px 8px;
+    border: none;
+    border-radius: var(--radius);
+    background: var(--bg-tertiary);
+    cursor: pointer;
+    transition: all 0.15s;
+    flex-shrink: 0;
+}
+
+.category-btn:active {
+    transform: scale(0.95);
 }
 
 .category-icon {
@@ -190,7 +216,53 @@ body {
 }
 
 .category-icon svg { width: 100%; height: 100%; }
-.category-btn.active .category-icon { color: var(--primary); }
+
+.category-name {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-tertiary);
+    white-space: nowrap;
+}
+
+/* Category-specific colors when active */
+.category-btn[data-category="pain_relief"].active {
+    background: linear-gradient(135deg, #007aff 0%, #5ac8fa 100%);
+    box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
+}
+
+.category-btn[data-category="antibiotics"].active {
+    background: linear-gradient(135deg, #34c759 0%, #30d158 100%);
+    box-shadow: 0 2px 8px rgba(52, 199, 89, 0.3);
+}
+
+.category-btn[data-category="sedation"].active {
+    background: linear-gradient(135deg, #5856d6 0%, #af52de 100%);
+    box-shadow: 0 2px 8px rgba(88, 86, 214, 0.3);
+}
+
+.category-btn[data-category="anaesthesia"].active {
+    background: linear-gradient(135deg, #ff9500 0%, #ffcc00 100%);
+    box-shadow: 0 2px 8px rgba(255, 149, 0, 0.3);
+}
+
+.category-btn[data-category="emergency"].active {
+    background: linear-gradient(135deg, #ff3b30 0%, #ff2d55 100%);
+    box-shadow: 0 2px 8px rgba(255, 59, 48, 0.3);
+}
+
+.category-btn[data-category="gi"].active {
+    background: linear-gradient(135deg, #5ac8fa 0%, #64d2ff 100%);
+    box-shadow: 0 2px 8px rgba(90, 200, 250, 0.3);
+}
+
+.category-btn.active .category-icon,
+.category-btn.active .category-name {
+    color: white;
+}
+
+.category-btn.active .category-name {
+    font-weight: 600;
+}
 
 /* Weight Input */
 .weight-stepper-container {
@@ -255,13 +327,19 @@ body {
 
 .weight-preset-btn {
     padding: 6px 12px;
-    background: var(--bg-tertiary);
+    background: rgba(0, 122, 255, 0.1);
     border: none;
     border-radius: 100px;
     font-size: 13px;
     font-weight: 500;
-    color: var(--text-secondary);
+    color: var(--primary);
     cursor: pointer;
+    transition: all 0.15s;
+}
+
+.weight-preset-btn:active {
+    background: var(--primary);
+    color: white;
 }
 
 /* Drug List */
@@ -313,6 +391,14 @@ body {
     text-transform: uppercase;
 }
 
+/* Category-specific badge colors */
+.badge.pain_relief { background: #007aff; }
+.badge.antibiotics { background: #34c759; }
+.badge.sedation { background: #5856d6; }
+.badge.anaesthesia { background: #ff9500; }
+.badge.emergency { background: #ff3b30; }
+.badge.gi { background: #5ac8fa; }
+
 .item-input-wrap input {
     width: 100%;
     padding: 8px 0;
@@ -324,7 +410,9 @@ body {
 .item-input-wrap input:focus { outline: none; }
 .item-input-wrap input::placeholder { color: var(--text-tertiary); }
 
-li.active-drug { background: rgba(0, 122, 255, 0.08); }
+li.active-drug {
+    background: linear-gradient(90deg, rgba(0, 122, 255, 0.08) 0%, rgba(88, 86, 214, 0.08) 100%);
+}
 
 .no-drugs {
     text-align: center;
@@ -335,9 +423,10 @@ li.active-drug { background: rgba(0, 122, 255, 0.08); }
 
 /* Result Card */
 .card {
-    background: var(--primary);
+    background: linear-gradient(135deg, #007aff 0%, #5856d6 100%);
     border-radius: var(--radius);
     color: white;
+    box-shadow: 0 4px 16px rgba(0, 122, 255, 0.3);
 }
 
 .card-header {
@@ -404,7 +493,7 @@ li.active-drug { background: rgba(0, 122, 255, 0.08); }
 .calc-value { font-weight: 600; font-family: ui-monospace, monospace; }
 
 .result-notes {
-    background: rgba(255, 149, 0, 0.25);
+    background: rgba(255, 149, 0, 0.3);
     border-radius: 8px;
     padding: 10px;
     margin-top: 10px;
@@ -438,7 +527,7 @@ li.active-drug { background: rgba(0, 122, 255, 0.08); }
     top: 0;
     left: 0;
     right: 0;
-    background: rgba(255, 149, 0, 0.95);
+    background: linear-gradient(135deg, #ff9500 0%, #ff3b30 100%);
     color: white;
     padding: 12px;
     padding-top: calc(env(safe-area-inset-top, 0px) + 12px);
@@ -459,7 +548,7 @@ li.active-drug { background: rgba(0, 122, 255, 0.08); }
     cursor: pointer;
 }
 
-.button-fill { background: white; color: #cc7700; }
+.button-fill { background: white; color: #ff6600; }
 .button:not(.button-fill) { background: rgba(255, 255, 255, 0.2); color: white; }
 
 /* Utilities */
