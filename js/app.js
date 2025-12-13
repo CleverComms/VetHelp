@@ -113,19 +113,9 @@ class VetCalcApp {
         this.updateSelectionInfo();
         this.renderDrugList();
         this.hideResult();
-        this.updateResetButtonVisibility();
 
         // Scroll to top
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    updateResetButtonVisibility() {
-        const resetBtn = document.getElementById('reset-btn');
-        if (this.selectedSpecies) {
-            resetBtn.style.display = 'flex';
-        } else {
-            resetBtn.style.display = 'none';
-        }
     }
 
     updateSectionVisibility() {
@@ -274,7 +264,6 @@ class VetCalcApp {
 
                 // Update visibility - weight stays visible, categories/drugs animate out
                 this.updateSectionVisibility();
-                this.updateResetButtonVisibility();
 
                 // Scroll to weight section after selecting species
                 setTimeout(() => {
