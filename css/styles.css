@@ -12,13 +12,16 @@
     --indigo: #5856d6;
 
     --bg-primary: #f2f2f7;
-    --bg-secondary: #ffffff;
-    --bg-tertiary: rgba(120, 120, 128, 0.12);
+    --bg-secondary: rgba(255, 255, 255, 0.7);
+    --bg-tertiary: rgba(120, 120, 128, 0.08);
+    --bg-glass: rgba(255, 255, 255, 0.6);
     --text-primary: #000000;
     --text-secondary: #3c3c43;
     --text-tertiary: #8e8e93;
-    --separator: rgba(60, 60, 67, 0.12);
-    --radius: 10px;
+    --separator: rgba(60, 60, 67, 0.1);
+    --radius: 16px;
+    --glass-border: rgba(255, 255, 255, 0.5);
+    --glass-shadow: rgba(0, 0, 0, 0.08);
 }
 
 * {
@@ -74,9 +77,11 @@ input, select, textarea {
 .splash-version { font-size: 14px; opacity: 0.7; margin-bottom: 24px; }
 .splash-loader .preloader { width: 20px; height: 20px; margin: 0 auto; }
 
-/* Header */
+/* Header - Liquid Glass */
 .header {
-    background: linear-gradient(135deg, #007aff 0%, #5856d6 100%);
+    background: linear-gradient(135deg, rgba(0, 122, 255, 0.85) 0%, rgba(88, 86, 214, 0.85) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     padding: 14px 16px;
     padding-top: calc(env(safe-area-inset-top, 0px) + 14px);
     display: flex;
@@ -85,12 +90,14 @@ input, select, textarea {
     position: sticky;
     top: 0;
     z-index: 100;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .header h1 {
     font-size: 18px;
     font-weight: 600;
     color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .offline-badge .badge {
@@ -102,19 +109,19 @@ input, select, textarea {
     font-weight: 600;
 }
 
-/* Selection Info Bar (fixed below header, hidden until species selected) */
+/* Selection Info Bar - Liquid Glass */
 .selection-info {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     padding: 0 16px;
     position: fixed;
     left: 0;
     right: 0;
     top: calc(env(safe-area-inset-top, 0px) + 46px); /* Below header */
     z-index: 99;
-    border-bottom: 1px solid var(--separator);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
     max-height: 0;
     overflow: hidden;
     opacity: 0;
@@ -224,11 +231,15 @@ input, select, textarea {
     margin: 20px 0 8px 4px;
 }
 
-/* Cards / Blocks */
+/* Cards / Blocks - Liquid Glass */
 .block {
-    background: var(--bg-secondary);
+    background: var(--bg-glass);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border-radius: var(--radius);
     margin-bottom: 12px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 2px 12px var(--glass-shadow);
 }
 
 .block-strong { padding: 10px 12px; }
@@ -258,7 +269,7 @@ input, select, textarea {
 .species-scroll::-webkit-scrollbar,
 .category-scroll::-webkit-scrollbar { display: none; }
 
-/* Species Buttons with Colors */
+/* Species Buttons - Liquid Glass */
 .species-btn {
     display: flex;
     flex-direction: column;
@@ -266,21 +277,22 @@ input, select, textarea {
     justify-content: center;
     min-width: 76px;
     padding: 12px 10px;
-    border: none;
+    border: 1px solid rgba(0, 0, 0, 0.04);
     border-radius: var(--radius);
-    background: var(--bg-tertiary);
+    background: rgba(120, 120, 128, 0.08);
     cursor: pointer;
-    transition: all 0.15s;
+    transition: all 0.2s ease-out;
     flex-shrink: 0;
 }
 
 .species-btn:active {
-    transform: scale(0.95);
+    transform: scale(0.96);
 }
 
 .species-btn.active {
-    background: linear-gradient(135deg, #007aff 0%, #5856d6 100%);
-    box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
+    background: linear-gradient(135deg, rgba(0, 122, 255, 0.9) 0%, rgba(88, 86, 214, 0.9) 100%);
+    box-shadow: 0 4px 16px rgba(0, 122, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .species-icon {
@@ -305,7 +317,7 @@ input, select, textarea {
     font-weight: 600;
 }
 
-/* Category Buttons with Individual Colors */
+/* Category Buttons - Liquid Glass */
 .category-btn {
     display: flex;
     flex-direction: column;
@@ -313,16 +325,16 @@ input, select, textarea {
     justify-content: center;
     min-width: 80px;
     padding: 12px 10px 10px;
-    border: none;
+    border: 1px solid rgba(0, 0, 0, 0.04);
     border-radius: var(--radius);
-    background: var(--bg-tertiary);
+    background: rgba(120, 120, 128, 0.08);
     cursor: pointer;
-    transition: all 0.15s;
+    transition: all 0.2s ease-out;
     flex-shrink: 0;
 }
 
 .category-btn:active {
-    transform: scale(0.95);
+    transform: scale(0.96);
 }
 
 .category-icon {
@@ -341,35 +353,41 @@ input, select, textarea {
     white-space: nowrap;
 }
 
-/* Category-specific colors when active */
+/* Category-specific colors when active - Liquid Glass */
 .category-btn[data-category="pain_relief"].active {
-    background: linear-gradient(135deg, #007aff 0%, #5ac8fa 100%);
-    box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
+    background: linear-gradient(135deg, rgba(0, 122, 255, 0.9) 0%, rgba(90, 200, 250, 0.9) 100%);
+    box-shadow: 0 4px 16px rgba(0, 122, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .category-btn[data-category="antibiotics"].active {
-    background: linear-gradient(135deg, #34c759 0%, #30d158 100%);
-    box-shadow: 0 2px 8px rgba(52, 199, 89, 0.3);
+    background: linear-gradient(135deg, rgba(52, 199, 89, 0.9) 0%, rgba(48, 209, 88, 0.9) 100%);
+    box-shadow: 0 4px 16px rgba(52, 199, 89, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .category-btn[data-category="sedation"].active {
-    background: linear-gradient(135deg, #5856d6 0%, #af52de 100%);
-    box-shadow: 0 2px 8px rgba(88, 86, 214, 0.3);
+    background: linear-gradient(135deg, rgba(88, 86, 214, 0.9) 0%, rgba(175, 82, 222, 0.9) 100%);
+    box-shadow: 0 4px 16px rgba(88, 86, 214, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .category-btn[data-category="anaesthesia"].active {
-    background: linear-gradient(135deg, #ff9500 0%, #ffcc00 100%);
-    box-shadow: 0 2px 8px rgba(255, 149, 0, 0.3);
+    background: linear-gradient(135deg, rgba(255, 149, 0, 0.9) 0%, rgba(255, 204, 0, 0.9) 100%);
+    box-shadow: 0 4px 16px rgba(255, 149, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .category-btn[data-category="emergency"].active {
-    background: linear-gradient(135deg, #ff3b30 0%, #ff2d55 100%);
-    box-shadow: 0 2px 8px rgba(255, 59, 48, 0.3);
+    background: linear-gradient(135deg, rgba(255, 59, 48, 0.9) 0%, rgba(255, 45, 85, 0.9) 100%);
+    box-shadow: 0 4px 16px rgba(255, 59, 48, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .category-btn[data-category="gi"].active {
-    background: linear-gradient(135deg, #5ac8fa 0%, #64d2ff 100%);
-    box-shadow: 0 2px 8px rgba(90, 200, 250, 0.3);
+    background: linear-gradient(135deg, rgba(90, 200, 250, 0.9) 0%, rgba(100, 210, 255, 0.9) 100%);
+    box-shadow: 0 4px 16px rgba(90, 200, 250, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .category-btn.active .category-icon,
@@ -392,8 +410,9 @@ input, select, textarea {
 .stepper {
     display: flex;
     align-items: center;
-    background: var(--bg-tertiary);
+    background: rgba(120, 120, 128, 0.08);
     border-radius: var(--radius);
+    border: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .stepper-button-minus,
@@ -445,24 +464,30 @@ input, select, textarea {
 .weight-preset-btn {
     padding: 10px 16px;
     background: rgba(0, 122, 255, 0.1);
-    border: none;
+    border: 1px solid rgba(0, 122, 255, 0.15);
     border-radius: 100px;
     font-size: 15px;
     font-weight: 500;
     color: var(--primary);
     cursor: pointer;
-    transition: all 0.15s;
+    transition: all 0.2s ease-out;
 }
 
 .weight-preset-btn:active {
-    background: var(--primary);
+    background: linear-gradient(135deg, rgba(0, 122, 255, 0.9) 0%, rgba(88, 86, 214, 0.9) 100%);
     color: white;
+    box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+    border-color: transparent;
 }
 
-/* Drug List */
+/* Drug List - Liquid Glass */
 .list {
-    background: var(--bg-secondary);
+    background: var(--bg-glass);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border-radius: var(--radius);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 2px 12px var(--glass-shadow);
 }
 
 .list ul { list-style: none; }
@@ -538,12 +563,15 @@ li.active-drug {
     font-size: 14px;
 }
 
-/* Result Card */
+/* Result Card - Liquid Glass */
 .card {
-    background: linear-gradient(135deg, #007aff 0%, #5856d6 100%);
+    background: linear-gradient(135deg, rgba(0, 122, 255, 0.9) 0%, rgba(88, 86, 214, 0.9) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-radius: var(--radius);
     color: white;
-    box-shadow: 0 4px 16px rgba(0, 122, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 122, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 .card-header {
@@ -638,18 +666,22 @@ li.active-drug {
     font-size: 10px;
 }
 
-/* Update Banner */
+/* Update Banner - Liquid Glass */
 .update-banner {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(135deg, #ff9500 0%, #ff3b30 100%);
+    background: linear-gradient(135deg, rgba(255, 149, 0, 0.92) 0%, rgba(255, 59, 48, 0.92) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     color: white;
     padding: 12px 16px;
     padding-top: calc(env(safe-area-inset-top, 0px) + 12px);
     z-index: 10000;
     display: none;
+    box-shadow: 0 4px 20px rgba(255, 59, 48, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .update-title {
@@ -672,14 +704,23 @@ li.active-drug {
     flex: 1;
     padding: 10px 14px;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
+    transition: all 0.2s ease-out;
 }
 
-.button-fill { background: white; color: #ff6600; }
-.button:not(.button-fill) { background: rgba(255, 255, 255, 0.25); color: white; }
+.button-fill {
+    background: rgba(255, 255, 255, 0.95);
+    color: #ff6600;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.button:not(.button-fill) {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
 
 /* Utilities */
 .text-align-center { text-align: center; }
