@@ -1,7 +1,17 @@
 /**
  * VetCalc - UK Veterinary Drug Calculator
- * Main Application Logic
+ * Main Application Logic with Framework7
  */
+
+// Initialize Framework7
+const app = new Framework7({
+    el: '#app',
+    name: 'VetCalc',
+    theme: 'ios',
+    colors: {
+        primary: '#007aff'
+    }
+});
 
 class VetCalcApp {
     constructor() {
@@ -299,40 +309,46 @@ class VetCalcApp {
 
         if (drugs.length === 0) {
             container.innerHTML = `
-                <div class="no-drugs">
-                    <p>No drugs found${this.selectedSpecies ? ' for ' + DRUG_DATABASE.speciesNames[this.selectedSpecies] : ''}.</p>
-                    <p style="font-size: 0.85rem; opacity: 0.7;">Try selecting a different species or category.</p>
-                </div>
+                <li>
+                    <div class="no-drugs">
+                        <p>No drugs found${this.selectedSpecies ? ' for ' + DRUG_DATABASE.speciesNames[this.selectedSpecies] : ''}.</p>
+                        <p style="font-size: 12px; opacity: 0.7;">Try selecting a different species or category.</p>
+                    </div>
+                </li>
             `;
             return;
         }
 
         drugs.forEach(drug => {
-            const item = document.createElement('div');
-            item.className = 'drug-item';
-            if (this.selectedDrug && this.selectedDrug.id === drug.id) {
-                item.classList.add('active');
-            }
-
             const category = DRUG_DATABASE.categories.find(c => c.id === drug.category);
+            const isActive = this.selectedDrug && this.selectedDrug.id === drug.id;
 
-            item.innerHTML = `
-                <div class="drug-info">
-                    <div class="drug-name">${drug.name}</div>
-                    <div class="drug-concentration">${drug.concentration}</div>
-                </div>
-                <span class="drug-category-badge">${category ? category.name : drug.category}</span>
+            const li = document.createElement('li');
+            li.className = isActive ? 'active-drug' : '';
+            li.innerHTML = `
+                <a href="#" class="item-link item-content">
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <div class="item-title">${drug.name}</div>
+                            <div class="item-after">
+                                <span class="badge">${category ? category.name : drug.category}</span>
+                            </div>
+                        </div>
+                        <div class="item-subtitle">${drug.concentration}</div>
+                    </div>
+                </a>
             `;
 
-            item.addEventListener('click', () => {
+            li.addEventListener('click', (e) => {
+                e.preventDefault();
                 // Remove active from all
-                container.querySelectorAll('.drug-item').forEach(i => i.classList.remove('active'));
-                item.classList.add('active');
+                container.querySelectorAll('li').forEach(i => i.classList.remove('active-drug'));
+                li.classList.add('active-drug');
                 this.selectedDrug = drug;
                 this.updateCalculation();
             });
 
-            container.appendChild(item);
+            container.appendChild(li);
         });
     }
 
@@ -576,7 +592,7 @@ class VetCalcApp {
 
         // Add route and frequency
         html += `
-            <div class="calc-step" style="border-top: 2px solid rgba(255,255,255,0.3); margin-top: 0.5rem; padding-top: 0.75rem;">
+            <div class="calc-step" style="border-top: 1px solid rgba(255,255,255,0.2); margin-top: 8px; padding-top: 12px;">
                 <span class="calc-label">Route:</span>
                 <span class="calc-value">${speciesData.route}</span>
             </div>
@@ -599,7 +615,7 @@ class VetCalcApp {
             }
 
             html += `
-                <div class="calc-step" style="background: rgba(244, 162, 97, 0.3); margin: 0.5rem -0.5rem; padding: 0.75rem;">
+                <div class="calc-step" style="background: rgba(255, 149, 0, 0.25); margin: 8px -16px -16px; padding: 12px 16px; border-radius: 0 0 12px 12px;">
                     <span class="calc-label">Loading dose (day 1):</span>
                     <span class="calc-value">${loadingDisplay}</span>
                 </div>
@@ -633,5 +649,5 @@ class VetCalcApp {
     }
 }
 
-// Initialize app
-const app = new VetCalcApp();
+// Initialize app when Framework7 is ready
+const vetCalc = new VetCalcApp();

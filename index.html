@@ -2,9 +2,9 @@
 <html lang="en-GB">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="description" content="UK veterinary drug dosage calculator for cats, dogs, rabbits, guinea pigs and other common species">
-    <meta name="theme-color" content="#00875a">
+    <meta name="theme-color" content="#007aff">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="VetCalc">
@@ -14,232 +14,272 @@
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="icons/icon-192.svg">
     <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16.png">
 
+    <!-- Framework7 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/framework7@8.3.3/css/bundle.min.css">
+
+    <!-- Custom styles -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <!-- Splash Screen -->
-    <div id="splash-screen" class="splash-screen">
-        <div class="splash-content">
-            <div class="splash-icon">
-                <svg viewBox="0 0 100 100" class="splash-logo">
-                    <circle cx="50" cy="50" r="45" fill="#00875a"/>
-                    <path d="M50 20 L50 80 M20 50 L80 50" stroke="white" stroke-width="8" stroke-linecap="round"/>
-                    <circle cx="50" cy="50" r="12" fill="white"/>
-                </svg>
-            </div>
-            <h1 class="splash-title">VetCalc</h1>
-            <p class="splash-version" id="splash-version">v1.0.0</p>
-            <div class="splash-loader">
-                <div class="loader-bar"></div>
-            </div>
-        </div>
-    </div>
+    <div id="app">
+        <!-- Status bar overlay for iOS -->
+        <div class="statusbar"></div>
 
-    <!-- Update Banner -->
-    <div id="update-banner" class="update-banner hidden">
-        <div class="update-content">
-            <span class="update-icon">&#8635;</span>
-            <div class="update-text">
-                <strong>Update Available</strong>
-                <p>A new version is available. Update recommended for latest drug data.</p>
-            </div>
-            <div class="update-actions">
-                <button id="update-btn" class="btn btn-update">Update Now</button>
-                <button id="dismiss-update-btn" class="btn btn-dismiss">Later</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Header -->
-    <header class="header">
-        <h1>VetCalc</h1>
-        <div class="offline-indicator" id="offline-indicator">
-            <span class="offline-dot"></span>
-            <span>Offline</span>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Warning Banner -->
-        <div class="warning-banner">
-            <strong>Important:</strong> Always verify calculations and consult product datasheets.
-            This tool is an aid only - professional judgement must be applied.
-        </div>
-
-        <!-- Species Selection -->
-        <section class="section section-species">
-            <div class="species-scroll" id="species-grid">
-                <button class="species-btn" data-species="dog">
-                    <span class="species-icon">
-                        <!-- Lucide: dog -->
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5"/>
-                            <path d="M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5"/>
-                            <path d="M8 14v.5"/>
-                            <path d="M16 14v.5"/>
-                            <path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/>
-                            <path d="M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444c0-1.061-.162-2.2-.493-3.309m-9.243-6.082A8.801 8.801 0 0 1 12 5c.78 0 1.5.108 2.161.306"/>
+        <!-- App Views -->
+        <div class="view view-main view-init safe-areas">
+            <!-- Splash Screen -->
+            <div id="splash-screen" class="splash-screen">
+                <div class="splash-content">
+                    <div class="splash-icon">
+                        <svg viewBox="0 0 100 100" class="splash-logo">
+                            <defs>
+                                <linearGradient id="splash-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#5ac8fa"/>
+                                    <stop offset="100%" style="stop-color:#007aff"/>
+                                </linearGradient>
+                            </defs>
+                            <circle cx="50" cy="50" r="45" fill="url(#splash-gradient)"/>
+                            <path d="M50 25 L50 75 M25 50 L75 50" stroke="white" stroke-width="8" stroke-linecap="round"/>
                         </svg>
-                    </span>
-                    <span class="species-name">Dog</span>
-                </button>
-                <button class="species-btn" data-species="cat">
-                    <span class="species-icon">
-                        <!-- Lucide: cat -->
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3.1-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.72.23 6.5 2.23A9.04 9.04 0 0 1 12 5Z"/>
-                            <path d="M8 14v.5"/>
-                            <path d="M16 14v.5"/>
-                            <path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/>
-                        </svg>
-                    </span>
-                    <span class="species-name">Cat</span>
-                </button>
-                <button class="species-btn" data-species="rabbit">
-                    <span class="species-icon">
-                        <!-- Lucide: rabbit -->
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M13 16a3 3 0 0 1 2.24 5"/>
-                            <path d="M18 12h.01"/>
-                            <path d="M18 21h-8a4 4 0 0 1-4-4 7 7 0 0 1 7-7h.2L9.6 6.4a1.93 1.93 0 1 1 2.8-2.8L15.8 7h.2c3.3 0 6 2.7 6 6v1a2 2 0 0 1-2 2h-1a3 3 0 0 0-3 3"/>
-                            <path d="M20 8.54V4a2 2 0 1 0-4 0v3"/>
-                            <path d="M7.612 12.524a3 3 0 1 0-1.6 4.3"/>
-                        </svg>
-                    </span>
-                    <span class="species-name">Rabbit</span>
-                </button>
-                <button class="species-btn" data-species="guinea_pig">
-                    <span class="species-icon">
-                        <!-- Lucide: squirrel (closest match) -->
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M15.236 22a3 3 0 0 0-2.2-5"/>
-                            <path d="M16 20a3 3 0 0 1 3-3h1a2 2 0 0 0 2-2v-1a7 7 0 0 0-7-7h-.2l3.6-3.6a1.93 1.93 0 1 0-2.8-2.8L12.2 4H12a8 8 0 0 0-8 8v.5A6.5 6.5 0 0 0 10.5 19H11"/>
-                            <circle cx="12" cy="11" r="1"/>
-                            <path d="M6.5 10c1.5-2.5 4-2.5 4 0"/>
-                        </svg>
-                    </span>
-                    <span class="species-name">Guinea Pig</span>
-                </button>
-                <button class="species-btn" data-species="hamster">
-                    <span class="species-icon">
-                        <!-- Lucide: paw-print -->
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="11" cy="4" r="2"/>
-                            <circle cx="18" cy="8" r="2"/>
-                            <circle cx="20" cy="16" r="2"/>
-                            <path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/>
-                        </svg>
-                    </span>
-                    <span class="species-name">Hamster</span>
-                </button>
-                <button class="species-btn" data-species="ferret">
-                    <span class="species-icon">
-                        <!-- Lucide: paw-print -->
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="11" cy="4" r="2"/>
-                            <circle cx="18" cy="8" r="2"/>
-                            <circle cx="20" cy="16" r="2"/>
-                            <path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/>
-                        </svg>
-                    </span>
-                    <span class="species-name">Ferret</span>
-                </button>
-                <button class="species-btn" data-species="rat">
-                    <span class="species-icon">
-                        <!-- Lucide: rat -->
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M17 5c0-1.7-1.3-3-3-3s-3 1.3-3 3c0 .8.3 1.5.8 2H11c-3.9 0-7 3.1-7 7v0c0 2.2 1.8 4 4 4"/>
-                            <path d="M16.8 3.9c.3-.3.6-.5 1-.7 1.5-.6 3.3.1 3.9 1.6.6 1.5-.1 3.3-1.6 3.9l1.6 2.8c.2.3.2.7.2 1-.2.8-.9 1.2-1.7 1.1 0 0-1.6-.3-2.7-.6H17c-1.7 0-3 1.3-3 3"/>
-                            <path d="M13.2 18a3 3 0 0 0-2.2-5"/>
-                            <path d="M13 22H4a2 2 0 0 1 0-4h12"/>
-                            <path d="M16 9h.01"/>
-                        </svg>
-                    </span>
-                    <span class="species-name">Rat</span>
-                </button>
-            </div>
-        </section>
-
-        <!-- Weight Input -->
-        <section class="section" id="weight-section">
-            <div class="weight-input-group">
-                <button class="weight-adjust-btn" id="weight-minus" aria-label="Decrease weight">−</button>
-                <input type="number"
-                       id="weight-input"
-                       class="weight-input"
-                       placeholder="0.00"
-                       step="0.01"
-                       min="0.01"
-                       inputmode="decimal">
-                <span class="weight-unit" id="weight-unit-label">kg</span>
-                <button class="weight-adjust-btn" id="weight-plus" aria-label="Increase weight">+</button>
-            </div>
-            <div class="weight-presets" id="weight-presets">
-                <!-- Populated by JavaScript based on species -->
-            </div>
-        </section>
-
-        <!-- Drug Categories -->
-        <section class="section section-categories">
-            <div class="category-scroll" id="drug-categories">
-                <!-- Populated by JavaScript -->
-            </div>
-        </section>
-
-        <!-- Drug Selection -->
-        <section class="section" id="drug-section">
-            <div class="search-container">
-                <input type="text"
-                       id="drug-search"
-                       class="drug-search"
-                       placeholder="Search drugs...">
-            </div>
-            <div class="drug-list" id="drug-list">
-                <!-- Populated by JavaScript -->
-            </div>
-        </section>
-
-        <!-- Calculation Result -->
-        <section class="section result-section" id="result-section">
-            <h2>Calculation Result</h2>
-            <div class="result-card" id="result-card">
-                <div class="result-header">
-                    <span class="result-drug-name" id="result-drug-name">-</span>
-                    <span class="result-species" id="result-species">-</span>
+                    </div>
+                    <h1 class="splash-title">VetCalc</h1>
+                    <p class="splash-version" id="splash-version">v1.8.0</p>
+                    <div class="splash-loader">
+                        <div class="preloader">
+                            <span class="preloader-inner">
+                                <span class="preloader-inner-line"></span>
+                                <span class="preloader-inner-line"></span>
+                                <span class="preloader-inner-line"></span>
+                                <span class="preloader-inner-line"></span>
+                                <span class="preloader-inner-line"></span>
+                                <span class="preloader-inner-line"></span>
+                                <span class="preloader-inner-line"></span>
+                                <span class="preloader-inner-line"></span>
+                            </span>
+                        </div>
+                    </div>
                 </div>
+            </div>
 
-                <div class="result-dose" id="result-dose">
-                    <span class="dose-value">-</span>
-                    <span class="dose-unit"></span>
-                </div>
-
-                <div class="calculation-breakdown" id="calculation-breakdown">
-                    <h3>Calculation Breakdown</h3>
-                    <div class="calculation-steps" id="calculation-steps">
-                        <!-- Populated by JavaScript -->
+            <!-- Main Page -->
+            <div class="page" data-name="home">
+                <!-- Navbar -->
+                <div class="navbar navbar-large navbar-transparent">
+                    <div class="navbar-bg"></div>
+                    <div class="navbar-inner">
+                        <div class="title sliding">VetCalc</div>
+                        <div class="title-large">
+                            <div class="title-large-text">VetCalc</div>
+                        </div>
+                        <div class="right">
+                            <span class="offline-badge" id="offline-indicator" style="display: none;">
+                                <span class="badge color-orange">Offline</span>
+                            </span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="result-notes" id="result-notes">
-                    <!-- Populated by JavaScript -->
+                <!-- Update Banner -->
+                <div id="update-banner" class="update-banner" style="display: none;">
+                    <div class="block block-strong inset">
+                        <div class="update-content">
+                            <p><strong>Update Available</strong></p>
+                            <p class="update-text">A new version is available with latest drug data.</p>
+                            <div class="grid grid-cols-2 grid-gap">
+                                <button class="button button-fill" id="update-btn">Update</button>
+                                <button class="button" id="dismiss-update-btn">Later</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page Content -->
+                <div class="page-content">
+                    <!-- Warning Block -->
+                    <div class="block block-strong inset margin-top warning-block">
+                        <p><strong>Important:</strong> Always verify calculations with product datasheets. This tool is an aid only.</p>
+                    </div>
+
+                    <!-- Species Selection -->
+                    <div class="block-title">Species</div>
+                    <div class="block block-strong inset no-padding">
+                        <div class="species-scroll" id="species-grid">
+                            <button class="species-btn" data-species="dog">
+                                <span class="species-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5"/>
+                                        <path d="M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5"/>
+                                        <path d="M8 14v.5"/><path d="M16 14v.5"/>
+                                        <path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/>
+                                        <path d="M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444c0-1.061-.162-2.2-.493-3.309m-9.243-6.082A8.801 8.801 0 0 1 12 5c.78 0 1.5.108 2.161.306"/>
+                                    </svg>
+                                </span>
+                                <span class="species-name">Dog</span>
+                            </button>
+                            <button class="species-btn" data-species="cat">
+                                <span class="species-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3.1-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.72.23 6.5 2.23A9.04 9.04 0 0 1 12 5Z"/>
+                                        <path d="M8 14v.5"/><path d="M16 14v.5"/>
+                                        <path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/>
+                                    </svg>
+                                </span>
+                                <span class="species-name">Cat</span>
+                            </button>
+                            <button class="species-btn" data-species="rabbit">
+                                <span class="species-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M13 16a3 3 0 0 1 2.24 5"/>
+                                        <path d="M18 12h.01"/>
+                                        <path d="M18 21h-8a4 4 0 0 1-4-4 7 7 0 0 1 7-7h.2L9.6 6.4a1.93 1.93 0 1 1 2.8-2.8L15.8 7h.2c3.3 0 6 2.7 6 6v1a2 2 0 0 1-2 2h-1a3 3 0 0 0-3 3"/>
+                                        <path d="M20 8.54V4a2 2 0 1 0-4 0v3"/>
+                                        <path d="M7.612 12.524a3 3 0 1 0-1.6 4.3"/>
+                                    </svg>
+                                </span>
+                                <span class="species-name">Rabbit</span>
+                            </button>
+                            <button class="species-btn" data-species="guinea_pig">
+                                <span class="species-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M15.236 22a3 3 0 0 0-2.2-5"/>
+                                        <path d="M16 20a3 3 0 0 1 3-3h1a2 2 0 0 0 2-2v-1a7 7 0 0 0-7-7h-.2l3.6-3.6a1.93 1.93 0 1 0-2.8-2.8L12.2 4H12a8 8 0 0 0-8 8v.5A6.5 6.5 0 0 0 10.5 19H11"/>
+                                        <circle cx="12" cy="11" r="1"/>
+                                        <path d="M6.5 10c1.5-2.5 4-2.5 4 0"/>
+                                    </svg>
+                                </span>
+                                <span class="species-name">Guinea Pig</span>
+                            </button>
+                            <button class="species-btn" data-species="hamster">
+                                <span class="species-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="11" cy="4" r="2"/>
+                                        <circle cx="18" cy="8" r="2"/>
+                                        <circle cx="20" cy="16" r="2"/>
+                                        <path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/>
+                                    </svg>
+                                </span>
+                                <span class="species-name">Hamster</span>
+                            </button>
+                            <button class="species-btn" data-species="ferret">
+                                <span class="species-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="11" cy="4" r="2"/>
+                                        <circle cx="18" cy="8" r="2"/>
+                                        <circle cx="20" cy="16" r="2"/>
+                                        <path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/>
+                                    </svg>
+                                </span>
+                                <span class="species-name">Ferret</span>
+                            </button>
+                            <button class="species-btn" data-species="rat">
+                                <span class="species-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M17 5c0-1.7-1.3-3-3-3s-3 1.3-3 3c0 .8.3 1.5.8 2H11c-3.9 0-7 3.1-7 7v0c0 2.2 1.8 4 4 4"/>
+                                        <path d="M16.8 3.9c.3-.3.6-.5 1-.7 1.5-.6 3.3.1 3.9 1.6.6 1.5-.1 3.3-1.6 3.9l1.6 2.8c.2.3.2.7.2 1-.2.8-.9 1.2-1.7 1.1 0 0-1.6-.3-2.7-.6H17c-1.7 0-3 1.3-3 3"/>
+                                        <path d="M13.2 18a3 3 0 0 0-2.2-5"/>
+                                        <path d="M13 22H4a2 2 0 0 1 0-4h12"/>
+                                        <path d="M16 9h.01"/>
+                                    </svg>
+                                </span>
+                                <span class="species-name">Rat</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Weight Input -->
+                    <div class="block-title">Weight</div>
+                    <div class="block block-strong inset">
+                        <div class="weight-stepper-container">
+                            <div class="stepper stepper-fill stepper-large stepper-round" id="weight-stepper">
+                                <div class="stepper-button-minus" id="weight-minus"></div>
+                                <div class="stepper-input-wrap">
+                                    <input type="number" id="weight-input" inputmode="decimal" placeholder="0.00" step="0.01" min="0">
+                                </div>
+                                <div class="stepper-button-plus" id="weight-plus"></div>
+                            </div>
+                            <span class="weight-unit-label" id="weight-unit-label">kg</span>
+                        </div>
+                        <div class="weight-presets" id="weight-presets">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Drug Categories -->
+                    <div class="block-title">Category</div>
+                    <div class="block block-strong inset no-padding">
+                        <div class="category-scroll" id="drug-categories">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Drug Search -->
+                    <div class="block-title">Drugs</div>
+                    <div class="list list-strong-ios list-outline-ios list-dividers-ios inset">
+                        <ul>
+                            <li class="item-content item-input">
+                                <div class="item-inner">
+                                    <div class="item-input-wrap">
+                                        <input type="text" id="drug-search" placeholder="Search drugs...">
+                                        <span class="input-clear-button"></span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Drug List -->
+                    <div class="list list-strong-ios list-outline-ios list-dividers-ios inset media-list" id="drug-list-container">
+                        <ul id="drug-list">
+                            <!-- Populated by JavaScript -->
+                        </ul>
+                    </div>
+
+                    <!-- Result Section -->
+                    <div id="result-section" style="display: none;">
+                        <div class="block-title">Calculation Result</div>
+                        <div class="card card-outline result-card">
+                            <div class="card-header">
+                                <span id="result-drug-name">-</span>
+                                <span class="badge" id="result-species">-</span>
+                            </div>
+                            <div class="card-content card-content-padding">
+                                <div class="result-dose" id="result-dose">
+                                    <span class="dose-value">-</span>
+                                    <span class="dose-unit"></span>
+                                </div>
+
+                                <div class="calculation-breakdown">
+                                    <p class="block-title-medium">Calculation Breakdown</p>
+                                    <div class="calculation-steps" id="calculation-steps">
+                                        <!-- Populated by JavaScript -->
+                                    </div>
+                                </div>
+
+                                <div class="result-notes" id="result-notes">
+                                    <!-- Populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="block footer-block">
+                        <p class="text-align-center">VetCalc v<span id="app-version">1.8.0</span></p>
+                        <p class="text-align-center text-color-gray">For professional veterinary use only. Always verify with product literature.</p>
+                    </div>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>VetCalc v<span id="app-version">1.0.0</span></p>
-        <p class="disclaimer">For professional veterinary use only. Always verify with product literature.</p>
-    </footer>
+    <!-- Framework7 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/framework7@8.3.3/js/bundle.min.js"></script>
 
-    <!-- Scripts -->
+    <!-- App Scripts -->
     <script src="js/drug-database.js"></script>
     <script src="js/app.js"></script>
+
     <script>
         // Register Service Worker
         if ('serviceWorker' in navigator) {
@@ -247,16 +287,12 @@
                 navigator.serviceWorker.register('sw.js')
                     .then(registration => {
                         console.log('ServiceWorker registered:', registration.scope);
-
-                        // Check for updates on load
                         registration.update();
 
-                        // Listen for new service worker
                         registration.addEventListener('updatefound', () => {
                             const newWorker = registration.installing;
                             newWorker.addEventListener('statechange', () => {
                                 if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                                    // New version available
                                     showUpdateBanner(registration);
                                 }
                             });
@@ -271,7 +307,7 @@
             const updateBtn = document.getElementById('update-btn');
             const dismissBtn = document.getElementById('dismiss-update-btn');
 
-            banner.classList.remove('hidden');
+            banner.style.display = 'block';
 
             updateBtn.addEventListener('click', () => {
                 if (registration.waiting) {
@@ -281,18 +317,14 @@
             });
 
             dismissBtn.addEventListener('click', () => {
-                banner.classList.add('hidden');
+                banner.style.display = 'none';
             });
         }
 
         // Online/Offline indicator
         function updateOnlineStatus() {
             const indicator = document.getElementById('offline-indicator');
-            if (navigator.onLine) {
-                indicator.classList.add('hidden');
-            } else {
-                indicator.classList.remove('hidden');
-            }
+            indicator.style.display = navigator.onLine ? 'none' : 'inline-flex';
         }
 
         window.addEventListener('online', updateOnlineStatus);
