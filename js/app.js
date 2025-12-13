@@ -98,15 +98,18 @@ class VetCalcApp {
 
     updateSelectionInfo() {
         const infoBar = document.getElementById('selection-info');
+        const spacer = document.getElementById('selection-info-spacer');
         const speciesDisplay = document.getElementById('selected-species-display');
         const weightDisplay = document.getElementById('selected-weight-display');
         const drugDisplay = document.getElementById('selected-drug-display');
 
-        // Show/hide the entire info bar based on species selection
+        // Show/hide the entire info bar and spacer based on species selection
         if (this.selectedSpecies) {
             infoBar.classList.add('visible');
+            spacer.classList.add('visible');
         } else {
             infoBar.classList.remove('visible');
+            spacer.classList.remove('visible');
         }
 
         // Update species display

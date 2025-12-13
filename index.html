@@ -46,7 +46,7 @@
                         </svg>
                     </div>
                     <h1 class="splash-title">VetCalc</h1>
-                    <p class="splash-version" id="splash-version">v2.11.0</p>
+                    <p class="splash-version" id="splash-version">v2.12.0</p>
                     <div class="splash-loader">
                         <div class="preloader">
                             <span class="preloader-inner">
@@ -74,21 +74,21 @@
                     </span>
                 </header>
 
-                <!-- Selection Info Bar (sticky) -->
+                <!-- Selection Info Bar (fixed) -->
                 <div id="selection-info" class="selection-info">
-                    <div class="selection-item" id="species-info">
-                        <span class="selection-label">Species:</span>
-                        <span class="selection-value not-set" id="selected-species-display">—</span>
+                    <div class="selection-info-labels">
+                        <div class="selection-item"><span class="selection-label">Species</span></div>
+                        <div class="selection-item"><span class="selection-label">Weight</span></div>
+                        <div class="selection-item"><span class="selection-label">Drug</span></div>
                     </div>
-                    <div class="selection-item" id="weight-info">
-                        <span class="selection-label">Weight:</span>
-                        <span class="selection-value not-set" id="selected-weight-display">—</span>
-                    </div>
-                    <div class="selection-item" id="drug-info">
-                        <span class="selection-label">Drug:</span>
-                        <span class="selection-value not-set" id="selected-drug-display">—</span>
+                    <div class="selection-info-values">
+                        <div class="selection-item"><span class="selection-value not-set" id="selected-species-display">—</span></div>
+                        <div class="selection-item"><span class="selection-value not-set" id="selected-weight-display">—</span></div>
+                        <div class="selection-item"><span class="selection-value not-set" id="selected-drug-display">—</span></div>
                     </div>
                 </div>
+                <!-- Spacer for fixed info bar -->
+                <div id="selection-info-spacer" class="selection-info-spacer"></div>
 
                 <!-- Update Banner -->
                 <div id="update-banner" class="update-banner" style="display: none;">
@@ -281,7 +281,7 @@
 
                     <!-- Footer -->
                     <div class="block footer-block">
-                        <p class="text-align-center">VetCalc v<span id="app-version">2.11.0</span></p>
+                        <p class="text-align-center">VetCalc v<span id="app-version">2.12.0</span></p>
                         <p class="text-align-center text-color-gray">For professional veterinary use only. Always verify with product literature.</p>
                     </div>
                 </div>
@@ -343,6 +343,17 @@
         window.addEventListener('online', updateOnlineStatus);
         window.addEventListener('offline', updateOnlineStatus);
         updateOnlineStatus();
+
+        // Prevent pinch-to-zoom on iOS
+        document.addEventListener('gesturestart', function(e) {
+            e.preventDefault();
+        });
+        document.addEventListener('gesturechange', function(e) {
+            e.preventDefault();
+        });
+        document.addEventListener('gestureend', function(e) {
+            e.preventDefault();
+        });
     </script>
 </body>
 </html>

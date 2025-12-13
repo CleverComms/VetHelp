@@ -28,7 +28,11 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-html { font-size: 16px; }
+html {
+    font-size: 16px;
+    touch-action: pan-x pan-y;
+    -ms-touch-action: pan-x pan-y;
+}
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
@@ -37,6 +41,14 @@ body {
     line-height: 1.4;
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
+    touch-action: pan-x pan-y;
+    -ms-touch-action: pan-x pan-y;
+}
+
+/* Prevent zoom on input focus (iOS) */
+input, select, textarea {
+    font-size: 16px !important;
+    touch-action: manipulation;
 }
 
 /* Splash Screen */
@@ -96,10 +108,9 @@ body {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     padding: 0 16px;
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    position: sticky;
+    position: fixed;
+    left: 0;
+    right: 0;
     top: 0;
     z-index: 99;
     border-bottom: 1px solid var(--separator);
@@ -111,32 +122,57 @@ body {
 }
 
 .selection-info.visible {
-    max-height: 60px;
+    max-height: 80px;
     opacity: 1;
-    padding: 8px 16px;
+    padding: 6px 16px 8px;
+}
+
+.selection-info-labels {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 2px;
+}
+
+.selection-info-values {
+    display: flex;
+    gap: 16px;
 }
 
 .selection-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    flex: 1;
+    min-width: 0;
 }
 
 .selection-label {
-    font-size: 12px;
+    font-size: 10px;
     color: var(--text-tertiary);
     font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .selection-value {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
     color: var(--primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .selection-value.not-set {
     color: var(--text-tertiary);
     font-weight: 400;
+}
+
+/* Spacer for fixed info bar */
+.selection-info-spacer {
+    height: 0;
+    transition: height 0.3s ease-out;
+}
+
+.selection-info-spacer.visible {
+    height: 50px;
 }
 
 /* Main Content */
