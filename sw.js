@@ -11,7 +11,9 @@ const ASSETS_TO_CACHE = [
     './css/styles.css',
     './js/app.js',
     './js/drug-database.js',
-    './icons/icon.svg'
+    './icons/icon.svg',
+    './icons/icon-192.svg',
+    './icons/icon-512.svg'
 ];
 
 // Install event - cache all assets
