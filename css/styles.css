@@ -139,7 +139,11 @@ input, select, textarea {
 }
 
 .selection-item {
-    flex: 1;
+    flex: 0 0 auto; /* Shrink to content */
+}
+
+.selection-item:last-child {
+    flex: 1; /* Drug name gets remaining space */
     min-width: 0;
 }
 
