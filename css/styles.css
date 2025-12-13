@@ -125,25 +125,18 @@ input, select, textarea {
     max-height: 80px;
     opacity: 1;
     padding: 6px 16px 8px;
-}
-
-.selection-info-labels {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 2px;
-}
-
-.selection-info-values {
     display: flex;
     gap: 16px;
 }
 
-.selection-item {
-    flex: 0 0 auto; /* Shrink to content */
+.selection-column {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
 }
 
-.selection-item:last-child {
-    flex: 1; /* Drug name gets remaining space */
+.selection-column-drug {
+    flex: 1;
     min-width: 0;
 }
 
@@ -153,6 +146,7 @@ input, select, textarea {
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    margin-bottom: 2px;
 }
 
 .selection-value {
