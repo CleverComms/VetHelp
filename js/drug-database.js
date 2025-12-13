@@ -8,17 +8,41 @@
  * Dosage sources: BSAVA Small Animal Formulary, VMD product literature
  */
 
-const APP_VERSION = '1.5.0';
+const APP_VERSION = '1.6.0';
 
 const DRUG_DATABASE = {
-    // Drug categories
+    // Drug categories with SF Symbol-style SVG icons
     categories: [
-        { id: 'pain_relief', name: 'Pain Relief', icon: '💊' },
-        { id: 'antibiotics', name: 'Antibiotics', icon: '🦠' },
-        { id: 'sedation', name: 'Sedation', icon: '😴' },
-        { id: 'anaesthesia', name: 'Anaesthesia', icon: '💉' },
-        { id: 'emergency', name: 'Emergency', icon: '🚨' },
-        { id: 'gi', name: 'GI', icon: '🫃' }
+        {
+            id: 'pain_relief',
+            name: 'Pain Relief',
+            icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="16" rx="4"/><line x1="6" y1="12" x2="18" y2="12"/><circle cx="12" cy="8" r="1.5"/><circle cx="12" cy="16" r="1.5"/></svg>'
+        },
+        {
+            id: 'antibiotics',
+            name: 'Antibiotics',
+            icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 4v4"/><path d="M12 16v4"/><path d="M4 12h4"/><path d="M16 12h4"/><circle cx="12" cy="12" r="2"/></svg>'
+        },
+        {
+            id: 'sedation',
+            name: 'Sedation',
+            icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-4.97 0-9 4.03-9 9v6c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-6c0-4.97-4.03-9-9-9z"/><path d="M9 14c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1z"/><path d="M15 14c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1z"/><path d="M9 17h6"/></svg>'
+        },
+        {
+            id: 'anaesthesia',
+            name: 'Anaesthesia',
+            icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 3l-6 6"/><path d="M10 12l-7 7"/><circle cx="17" cy="5" r="2"/><path d="M12 12l2-2"/><rect x="3" y="17" width="4" height="4" rx="1"/></svg>'
+        },
+        {
+            id: 'emergency',
+            name: 'Emergency',
+            icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/><path d="M12 8v4"/><circle cx="12" cy="14" r="1"/></svg>'
+        },
+        {
+            id: 'gi',
+            name: 'GI',
+            icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="8" rx="7" ry="4"/><path d="M5 8v4c0 2.21 3.13 4 7 4s7-1.79 7-4V8"/><path d="M5 12v4c0 2.21 3.13 4 7 4s7-1.79 7-4v-4"/></svg>'
+        }
     ],
 
     // Species-specific weight presets (kg)

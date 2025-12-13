@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="UK veterinary drug dosage calculator for cats, dogs, rabbits, guinea pigs and other common species">
-    <meta name="theme-color" content="#1a5f4a">
+    <meta name="theme-color" content="#00875a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="VetCalc">
@@ -25,7 +25,7 @@
         <div class="splash-content">
             <div class="splash-icon">
                 <svg viewBox="0 0 100 100" class="splash-logo">
-                    <circle cx="50" cy="50" r="45" fill="#1a5f4a"/>
+                    <circle cx="50" cy="50" r="45" fill="#00875a"/>
                     <path d="M50 20 L50 80 M20 50 L80 50" stroke="white" stroke-width="8" stroke-linecap="round"/>
                     <circle cx="50" cy="50" r="12" fill="white"/>
                 </svg>
@@ -74,31 +74,98 @@
         <section class="section section-species">
             <div class="species-scroll" id="species-grid">
                 <button class="species-btn" data-species="dog">
-                    <span class="species-icon">&#128054;</span>
+                    <span class="species-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10 5.5C10 4.67 9.33 4 8.5 4S7 4.67 7 5.5 7.67 7 8.5 7 10 6.33 10 5.5z"/>
+                            <path d="M17 5.5c0-.83-.67-1.5-1.5-1.5S14 4.67 14 5.5 14.67 7 15.5 7 17 6.33 17 5.5z"/>
+                            <path d="M5.5 10C4.67 10 4 10.67 4 11.5S4.67 13 5.5 13 7 12.33 7 11.5 6.33 10 5.5 10z"/>
+                            <path d="M18.5 10c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"/>
+                            <path d="M12 8c-2.5 0-4.5 1.5-4.5 4 0 1.5.5 2.5 1.5 3.5.5.5 1 1.5 1 2.5v1c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-1c0-1 .5-2 1-2.5 1-1 1.5-2 1.5-3.5 0-2.5-2-4-4.5-4z"/>
+                        </svg>
+                    </span>
                     <span class="species-name">Dog</span>
                 </button>
                 <button class="species-btn" data-species="cat">
-                    <span class="species-icon">&#128049;</span>
+                    <span class="species-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 5c-1.5 0-3 .5-4 1.5-1 1-1.5 2.5-1.5 4 0 2 1 3.5 2 4.5.5.5.5 1.5.5 2.5v1.5c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1.5c0-1 0-2 .5-2.5 1-1 2-2.5 2-4.5 0-1.5-.5-3-1.5-4-1-1-2.5-1.5-4-1.5z"/>
+                            <path d="M7 4l1 3"/>
+                            <path d="M17 4l-1 3"/>
+                            <circle cx="10" cy="11" r="1"/>
+                            <circle cx="14" cy="11" r="1"/>
+                            <path d="M10 14h4"/>
+                        </svg>
+                    </span>
                     <span class="species-name">Cat</span>
                 </button>
                 <button class="species-btn" data-species="rabbit">
-                    <span class="species-icon">&#128048;</span>
+                    <span class="species-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <ellipse cx="12" cy="15" rx="5" ry="4"/>
+                            <circle cx="12" cy="10" r="3"/>
+                            <path d="M9 4c-.5 0-1 .5-1 1v3"/>
+                            <path d="M15 4c.5 0 1 .5 1 1v3"/>
+                            <circle cx="10.5" cy="9.5" r="0.5" fill="currentColor"/>
+                            <circle cx="13.5" cy="9.5" r="0.5" fill="currentColor"/>
+                        </svg>
+                    </span>
                     <span class="species-name">Rabbit</span>
                 </button>
                 <button class="species-btn" data-species="guinea_pig">
-                    <span class="species-icon">&#128045;</span>
+                    <span class="species-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <ellipse cx="12" cy="13" rx="7" ry="5"/>
+                            <circle cx="17" cy="11" r="2"/>
+                            <circle cx="16" cy="10.5" r="0.5" fill="currentColor"/>
+                            <path d="M19 10.5c.5-.25 1-.25 1.5 0"/>
+                            <path d="M19 12c.5.25 1 .25 1.5 0"/>
+                            <ellipse cx="8" cy="16" rx="1" ry="0.5"/>
+                            <ellipse cx="12" cy="17" rx="1" ry="0.5"/>
+                            <ellipse cx="16" cy="16" rx="1" ry="0.5"/>
+                        </svg>
+                    </span>
                     <span class="species-name">Guinea Pig</span>
                 </button>
                 <button class="species-btn" data-species="hamster">
-                    <span class="species-icon">&#128057;</span>
+                    <span class="species-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="13" r="6"/>
+                            <circle cx="12" cy="9" r="4"/>
+                            <path d="M7 6c-1-1-2-1-2.5-.5s0 1.5.5 2.5"/>
+                            <path d="M17 6c1-1 2-1 2.5-.5s0 1.5-.5 2.5"/>
+                            <circle cx="10" cy="8.5" r="0.75" fill="currentColor"/>
+                            <circle cx="14" cy="8.5" r="0.75" fill="currentColor"/>
+                            <ellipse cx="12" cy="10" rx="1.5" ry="1" fill="currentColor"/>
+                        </svg>
+                    </span>
                     <span class="species-name">Hamster</span>
                 </button>
                 <button class="species-btn" data-species="ferret">
-                    <span class="species-icon">&#129446;</span>
+                    <span class="species-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <ellipse cx="8" cy="12" rx="4" ry="3"/>
+                            <path d="M12 12c2 0 5-.5 6-1s2 0 2.5.5"/>
+                            <path d="M12 12c2 0 5 .5 6 1s2 0 2.5-.5"/>
+                            <circle cx="6" cy="11" r="2"/>
+                            <circle cx="5.5" cy="10.5" r="0.5" fill="currentColor"/>
+                            <path d="M4.5 9c-.5-.5-.5-1 0-1.5"/>
+                            <path d="M4 12c-.75 0-1 .5-1 1"/>
+                        </svg>
+                    </span>
                     <span class="species-name">Ferret</span>
                 </button>
                 <button class="species-btn" data-species="rat">
-                    <span class="species-icon">&#128000;</span>
+                    <span class="species-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <ellipse cx="10" cy="13" rx="6" ry="4"/>
+                            <circle cx="5" cy="11" r="2.5"/>
+                            <circle cx="4.5" cy="10.5" r="0.5" fill="currentColor"/>
+                            <path d="M3 8.5c0-1 .5-2 1.5-2"/>
+                            <path d="M6.5 8.5c0-1-.5-2-1.5-2"/>
+                            <path d="M16 13c3 0 4.5.5 5 1"/>
+                            <path d="M2.5 12c-.5.25-.5.75 0 1"/>
+                        </svg>
+                    </span>
                     <span class="species-name">Rat</span>
                 </button>
             </div>
