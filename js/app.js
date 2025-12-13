@@ -110,6 +110,10 @@ class VetCalcApp {
                 this.selectedSpecies = btn.dataset.species;
                 this.weightManuallySet = false; // Reset - user needs to confirm/update weight
 
+                // Animate weight section by briefly removing visible class
+                const weightSection = document.getElementById('weight-section');
+                weightSection.classList.remove('visible');
+
                 // Auto-switch to grams for small animals
                 if (this.smallAnimals.includes(this.selectedSpecies)) {
                     this.setWeightUnit('g');
@@ -130,9 +134,15 @@ class VetCalcApp {
                 }
 
                 this.updateWeightPresets();
-                this.updateSectionVisibility();
                 this.renderDrugList();
                 this.updateCalculation();
+
+                // Re-animate weight section after brief delay
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        this.updateSectionVisibility();
+                    });
+                });
             });
         });
     }

@@ -3,7 +3,7 @@
  * Provides full offline functionality
  */
 
-const CACHE_NAME = 'vetcalc-v2.7.0';
+const CACHE_NAME = 'vetcalc-v2.8.0';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -13,7 +13,13 @@ const ASSETS_TO_CACHE = [
     './js/drug-database.js',
     './icons/icon.svg',
     './icons/icon-192.svg',
-    './icons/icon-512.svg'
+    './icons/icon-512.svg',
+    './icons/icon-192.png',
+    './icons/icon-512.png',
+    './icons/apple-touch-icon.png',
+    './icons/apple-touch-icon-120.png',
+    './icons/apple-touch-icon-152.png',
+    './icons/apple-touch-icon-180.png'
 ];
 
 // Install event - cache all assets
