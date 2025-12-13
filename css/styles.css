@@ -149,6 +149,10 @@ input, select, textarea {
     border-right: none;
 }
 
+.selection-column.hidden {
+    display: none;
+}
+
 .selection-column-drug {
     flex: 1;
     min-width: 0;

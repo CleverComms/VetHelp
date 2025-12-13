@@ -114,6 +114,8 @@ class VetCalcApp {
         const speciesDisplay = document.getElementById('selected-species-display');
         const weightDisplay = document.getElementById('selected-weight-display');
         const drugDisplay = document.getElementById('selected-drug-display');
+        const weightColumn = document.getElementById('weight-column');
+        const drugColumn = document.getElementById('drug-column');
 
         // Show/hide the entire info bar and spacer based on species selection
         if (this.selectedSpecies) {
@@ -134,8 +136,9 @@ class VetCalcApp {
             speciesDisplay.classList.add('not-set');
         }
 
-        // Update weight display with animation
-        if (this.weight) {
+        // Show/hide weight column - only show when weight has been manually set
+        if (this.weightManuallySet && this.weight) {
+            weightColumn.classList.remove('hidden');
             let newValue;
             if (this.weightUnit === 'g') {
                 newValue = `${(this.weight * 1000).toFixed(0)}g`;
@@ -145,17 +148,16 @@ class VetCalcApp {
             this.animateValue(weightDisplay, newValue);
             weightDisplay.classList.remove('not-set');
         } else {
-            this.animateValue(weightDisplay, '—');
-            weightDisplay.classList.add('not-set');
+            weightColumn.classList.add('hidden');
         }
 
-        // Update drug display with animation
+        // Show/hide drug column - only show when a drug is selected
         if (this.selectedDrug) {
+            drugColumn.classList.remove('hidden');
             this.animateValue(drugDisplay, this.selectedDrug.name);
             drugDisplay.classList.remove('not-set');
         } else {
-            this.animateValue(drugDisplay, '—');
-            drugDisplay.classList.add('not-set');
+            drugColumn.classList.add('hidden');
         }
     }
 
