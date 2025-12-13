@@ -66,6 +66,20 @@ class VetCalcApp {
 
         // Hide result section initially
         document.getElementById('result-section').style.display = 'none';
+
+        // Hide category and drugs sections initially
+        this.updateSectionVisibility();
+    }
+
+    updateSectionVisibility() {
+        const categorySection = document.getElementById('category-section');
+        const drugsSection = document.getElementById('drugs-section');
+
+        // Show only if both species and weight are selected
+        const shouldShow = this.selectedSpecies && this.weight;
+
+        categorySection.style.display = shouldShow ? 'block' : 'none';
+        drugsSection.style.display = shouldShow ? 'block' : 'none';
     }
 
     setupSpeciesSelection() {
@@ -101,6 +115,7 @@ class VetCalcApp {
                 }
 
                 this.updateWeightPresets();
+                this.updateSectionVisibility();
                 this.renderDrugList();
                 this.updateCalculation();
             });
@@ -170,10 +185,12 @@ class VetCalcApp {
             }
 
             if (this.weight > 0) {
+                this.updateSectionVisibility();
                 this.renderDrugList();
                 this.updateCalculation();
             } else {
                 this.weight = null;
+                this.updateSectionVisibility();
                 this.renderDrugList();
                 this.hideResult();
             }
@@ -192,6 +209,7 @@ class VetCalcApp {
                 this.weight = newVal;
             }
 
+            this.updateSectionVisibility();
             this.renderDrugList();
             this.updateCalculation();
         });
@@ -209,10 +227,12 @@ class VetCalcApp {
                 } else {
                     this.weight = value;
                 }
+                this.updateSectionVisibility();
                 this.renderDrugList();
                 this.updateCalculation();
             } else {
                 this.weight = null;
+                this.updateSectionVisibility();
                 this.renderDrugList();
                 this.hideResult();
             }
@@ -254,6 +274,7 @@ class VetCalcApp {
                     input.value = weightKg.toFixed(2);
                 }
                 this.weight = weightKg;
+                this.updateSectionVisibility();
                 this.renderDrugList();
                 this.updateCalculation();
             });
@@ -301,19 +322,8 @@ class VetCalcApp {
         const container = document.getElementById('drug-list');
         container.innerHTML = '';
 
-        // Don't show drugs until species and weight are selected
+        // Don't render if species and weight aren't selected (section is hidden anyway)
         if (!this.selectedSpecies || !this.weight) {
-            let message = 'Select a species';
-            if (this.selectedSpecies && !this.weight) {
-                message = 'Enter weight';
-            }
-            container.innerHTML = `
-                <li>
-                    <div class="no-drugs">
-                        <p>${message} to see available drugs.</p>
-                    </div>
-                </li>
-            `;
             return;
         }
 

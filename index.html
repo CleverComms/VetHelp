@@ -41,7 +41,7 @@
                         </svg>
                     </div>
                     <h1 class="splash-title">VetCalc</h1>
-                    <p class="splash-version" id="splash-version">v2.3.0</p>
+                    <p class="splash-version" id="splash-version">v2.4.0</p>
                     <div class="splash-loader">
                         <div class="preloader">
                             <span class="preloader-inner">
@@ -194,34 +194,38 @@
                         </div>
                     </div>
 
-                    <!-- Drug Categories -->
-                    <div class="block-title">Category</div>
-                    <div class="block block-strong inset no-padding">
-                        <div class="category-scroll" id="drug-categories">
-                            <!-- Populated by JavaScript -->
+                    <!-- Drug Categories (hidden until species and weight selected) -->
+                    <div id="category-section" style="display: none;">
+                        <div class="block-title">Category</div>
+                        <div class="block block-strong inset no-padding">
+                            <div class="category-scroll" id="drug-categories">
+                                <!-- Populated by JavaScript -->
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Drug Search -->
-                    <div class="block-title">Drugs</div>
-                    <div class="list list-strong-ios list-outline-ios list-dividers-ios inset">
-                        <ul>
-                            <li class="item-content item-input">
-                                <div class="item-inner">
-                                    <div class="item-input-wrap">
-                                        <input type="text" id="drug-search" placeholder="Search drugs...">
-                                        <span class="input-clear-button"></span>
+                    <!-- Drug Search and List (hidden until species and weight selected) -->
+                    <div id="drugs-section" style="display: none;">
+                        <div class="block-title">Drugs</div>
+                        <div class="list list-strong-ios list-outline-ios list-dividers-ios inset">
+                            <ul>
+                                <li class="item-content item-input">
+                                    <div class="item-inner">
+                                        <div class="item-input-wrap">
+                                            <input type="text" id="drug-search" placeholder="Search drugs...">
+                                            <span class="input-clear-button"></span>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+                                </li>
+                            </ul>
+                        </div>
 
-                    <!-- Drug List -->
-                    <div class="list list-strong-ios list-outline-ios list-dividers-ios inset media-list" id="drug-list-container">
-                        <ul id="drug-list">
-                            <!-- Populated by JavaScript -->
-                        </ul>
+                        <!-- Drug List -->
+                        <div class="list list-strong-ios list-outline-ios list-dividers-ios inset media-list" id="drug-list-container">
+                            <ul id="drug-list">
+                                <!-- Populated by JavaScript -->
+                            </ul>
+                        </div>
                     </div>
 
                     <!-- Result Section -->
@@ -254,7 +258,7 @@
 
                     <!-- Footer -->
                     <div class="block footer-block">
-                        <p class="text-align-center">VetCalc v<span id="app-version">2.3.0</span></p>
+                        <p class="text-align-center">VetCalc v<span id="app-version">2.4.0</span></p>
                         <p class="text-align-center text-color-gray">For professional veterinary use only. Always verify with product literature.</p>
                     </div>
                 </div>
