@@ -129,7 +129,7 @@ class VetCalcApp {
                     if (this.weightUnit === 'g') {
                         input.value = (avgWeight * 1000).toFixed(0);
                     } else {
-                        input.value = avgWeight.toFixed(2);
+                        input.value = avgWeight.toFixed(1);
                     }
                 }
 
@@ -159,8 +159,8 @@ class VetCalcApp {
             input.step = '1';
             input.placeholder = '0';
         } else {
-            input.step = '0.01';
-            input.placeholder = '0.00';
+            input.step = '0.1';
+            input.placeholder = '0.0';
         }
 
         // Convert displayed value if we have a weight
@@ -168,7 +168,7 @@ class VetCalcApp {
             if (unit === 'g') {
                 input.value = (this.weight * 1000).toFixed(0);
             } else {
-                input.value = this.weight.toFixed(2);
+                input.value = this.weight.toFixed(1);
             }
         }
 
@@ -184,18 +184,12 @@ class VetCalcApp {
         let holdInterval = null;
         let holdTimeout = null;
 
-        // Get increment based on unit and current value
+        // Get increment based on unit
         const getIncrement = () => {
             if (this.weightUnit === 'g') {
-                const currentVal = parseFloat(input.value) || 0;
-                if (currentVal < 100) return 5;
-                if (currentVal < 500) return 10;
-                return 50;
+                return 1; // 1g increments for small animals
             } else {
-                const currentVal = parseFloat(input.value) || 0;
-                if (currentVal < 1) return 0.1;
-                if (currentVal < 10) return 0.5;
-                return 1;
+                return 0.1; // 0.1kg increments for larger animals
             }
         };
 
@@ -209,7 +203,7 @@ class VetCalcApp {
                 input.value = newVal.toFixed(0);
                 this.weight = newVal / 1000;
             } else {
-                input.value = newVal.toFixed(2);
+                input.value = newVal.toFixed(1);
                 this.weight = newVal;
             }
 
@@ -237,7 +231,7 @@ class VetCalcApp {
                 input.value = newVal.toFixed(0);
                 this.weight = newVal / 1000;
             } else {
-                input.value = newVal.toFixed(2);
+                input.value = newVal.toFixed(1);
                 this.weight = newVal;
             }
 
@@ -347,7 +341,7 @@ class VetCalcApp {
                 const grams = weightKg * 1000;
                 btn.textContent = `${grams.toFixed(0)}g`;
             } else {
-                btn.textContent = `${weightKg.toFixed(2)}kg`;
+                btn.textContent = `${weightKg.toFixed(1)}kg`;
             }
 
             btn.addEventListener('click', () => {
@@ -355,7 +349,7 @@ class VetCalcApp {
                 if (this.weightUnit === 'g') {
                     input.value = (weightKg * 1000).toFixed(0);
                 } else {
-                    input.value = weightKg.toFixed(2);
+                    input.value = weightKg.toFixed(1);
                 }
                 this.weight = weightKg;
                 this.weightManuallySet = true; // User manually selected weight
