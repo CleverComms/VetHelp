@@ -15,6 +15,7 @@ class VetCalcApp {
         this.weight = null; // Always stored in kg internally
         this.weightUnit = 'kg'; // 'kg' or 'g'
         this.activeCategory = 'pain_relief'; // Start with pain relief
+        this.weightManuallySet = false; // Track if user has manually updated weight
 
         // Species that typically use grams
         this.smallAnimals = ['hamster', 'rat', 'guinea_pig'];
@@ -83,8 +84,8 @@ class VetCalcApp {
             weightSection.classList.remove('visible');
         }
 
-        // Show category and drugs only if both species and weight are selected
-        const shouldShowDrugs = this.selectedSpecies && this.weight;
+        // Show category and drugs only if species selected AND weight manually updated
+        const shouldShowDrugs = this.selectedSpecies && this.weight && this.weightManuallySet;
 
         if (shouldShowDrugs) {
             categorySection.classList.add('visible');
@@ -107,6 +108,7 @@ class VetCalcApp {
                 btn.classList.add('active');
 
                 this.selectedSpecies = btn.dataset.species;
+                this.weightManuallySet = false; // Reset - user needs to confirm/update weight
 
                 // Auto-switch to grams for small animals
                 if (this.smallAnimals.includes(this.selectedSpecies)) {
@@ -201,6 +203,8 @@ class VetCalcApp {
                 this.weight = newVal;
             }
 
+            this.weightManuallySet = true; // User manually changed weight
+
             if (this.weight > 0) {
                 this.updateSectionVisibility();
                 this.renderDrugList();
@@ -227,6 +231,7 @@ class VetCalcApp {
                 this.weight = newVal;
             }
 
+            this.weightManuallySet = true; // User manually changed weight
             this.updateSectionVisibility();
             this.renderDrugList();
             this.updateCalculation();
@@ -288,6 +293,7 @@ class VetCalcApp {
 
         weightInput.addEventListener('input', (e) => {
             const value = parseFloat(e.target.value);
+            this.weightManuallySet = true; // User manually changed weight
             if (!isNaN(value) && value > 0) {
                 // Convert to kg if input is in grams
                 if (this.weightUnit === 'g') {
@@ -342,6 +348,7 @@ class VetCalcApp {
                     input.value = weightKg.toFixed(2);
                 }
                 this.weight = weightKg;
+                this.weightManuallySet = true; // User manually selected weight
                 this.updateSectionVisibility();
                 this.renderDrugList();
                 this.updateCalculation();
