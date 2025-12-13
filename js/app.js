@@ -97,9 +97,17 @@ class VetCalcApp {
     }
 
     updateSelectionInfo() {
+        const infoBar = document.getElementById('selection-info');
         const speciesDisplay = document.getElementById('selected-species-display');
         const weightDisplay = document.getElementById('selected-weight-display');
         const drugDisplay = document.getElementById('selected-drug-display');
+
+        // Show/hide the entire info bar based on species selection
+        if (this.selectedSpecies) {
+            infoBar.classList.add('visible');
+        } else {
+            infoBar.classList.remove('visible');
+        }
 
         // Update species display
         if (this.selectedSpecies) {

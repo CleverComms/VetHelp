@@ -90,12 +90,12 @@ body {
     font-weight: 600;
 }
 
-/* Selection Info Bar (sticky) */
+/* Selection Info Bar (sticky, hidden until species selected) */
 .selection-info {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    padding: 8px 16px;
+    padding: 0 16px;
     display: flex;
     gap: 16px;
     flex-wrap: wrap;
@@ -104,6 +104,16 @@ body {
     z-index: 99;
     border-bottom: 1px solid var(--separator);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease-out, opacity 0.3s ease-out, padding 0.3s ease-out;
+}
+
+.selection-info.visible {
+    max-height: 60px;
+    opacity: 1;
+    padding: 8px 16px;
 }
 
 .selection-item {
