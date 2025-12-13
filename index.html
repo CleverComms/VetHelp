@@ -46,7 +46,7 @@
                         </svg>
                     </div>
                     <h1 class="splash-title">VetCalc</h1>
-                    <p class="splash-version" id="splash-version">v2.9.0</p>
+                    <p class="splash-version" id="splash-version">v2.10.0</p>
                     <div class="splash-loader">
                         <div class="preloader">
                             <span class="preloader-inner">
@@ -73,6 +73,22 @@
                         <span class="badge">Offline</span>
                     </span>
                 </header>
+
+                <!-- Selection Info Bar (sticky) -->
+                <div id="selection-info" class="selection-info">
+                    <div class="selection-item" id="species-info">
+                        <span class="selection-label">Species:</span>
+                        <span class="selection-value not-set" id="selected-species-display">—</span>
+                    </div>
+                    <div class="selection-item" id="weight-info">
+                        <span class="selection-label">Weight:</span>
+                        <span class="selection-value not-set" id="selected-weight-display">—</span>
+                    </div>
+                    <div class="selection-item" id="drug-info">
+                        <span class="selection-label">Drug:</span>
+                        <span class="selection-value not-set" id="selected-drug-display">—</span>
+                    </div>
+                </div>
 
                 <!-- Update Banner -->
                 <div id="update-banner" class="update-banner" style="display: none;">
@@ -265,7 +281,7 @@
 
                     <!-- Footer -->
                     <div class="block footer-block">
-                        <p class="text-align-center">VetCalc v<span id="app-version">2.9.0</span></p>
+                        <p class="text-align-center">VetCalc v<span id="app-version">2.10.0</span></p>
                         <p class="text-align-center text-color-gray">For professional veterinary use only. Always verify with product literature.</p>
                     </div>
                 </div>

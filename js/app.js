@@ -96,6 +96,43 @@ class VetCalcApp {
         }
     }
 
+    updateSelectionInfo() {
+        const speciesDisplay = document.getElementById('selected-species-display');
+        const weightDisplay = document.getElementById('selected-weight-display');
+        const drugDisplay = document.getElementById('selected-drug-display');
+
+        // Update species display
+        if (this.selectedSpecies) {
+            speciesDisplay.textContent = DRUG_DATABASE.speciesNames[this.selectedSpecies];
+            speciesDisplay.classList.remove('not-set');
+        } else {
+            speciesDisplay.textContent = '—';
+            speciesDisplay.classList.add('not-set');
+        }
+
+        // Update weight display
+        if (this.weight) {
+            if (this.weightUnit === 'g') {
+                weightDisplay.textContent = `${(this.weight * 1000).toFixed(0)}g`;
+            } else {
+                weightDisplay.textContent = `${this.weight.toFixed(1)}kg`;
+            }
+            weightDisplay.classList.remove('not-set');
+        } else {
+            weightDisplay.textContent = '—';
+            weightDisplay.classList.add('not-set');
+        }
+
+        // Update drug display
+        if (this.selectedDrug) {
+            drugDisplay.textContent = this.selectedDrug.name;
+            drugDisplay.classList.remove('not-set');
+        } else {
+            drugDisplay.textContent = '—';
+            drugDisplay.classList.add('not-set');
+        }
+    }
+
     setupSpeciesSelection() {
         const speciesGrid = document.getElementById('species-grid');
         const buttons = speciesGrid.querySelectorAll('.species-btn');
@@ -134,6 +171,7 @@ class VetCalcApp {
                 }
 
                 this.updateWeightPresets();
+                this.updateSelectionInfo();
                 this.renderDrugList();
                 this.updateCalculation();
 
@@ -211,11 +249,13 @@ class VetCalcApp {
 
             if (this.weight > 0) {
                 this.updateSectionVisibility();
+                this.updateSelectionInfo();
                 this.renderDrugList();
                 this.updateCalculation();
             } else {
                 this.weight = null;
                 this.updateSectionVisibility();
+                this.updateSelectionInfo();
                 this.renderDrugList();
                 this.hideResult();
             }
@@ -237,6 +277,7 @@ class VetCalcApp {
 
             this.weightManuallySet = true; // User manually changed weight
             this.updateSectionVisibility();
+            this.updateSelectionInfo();
             this.renderDrugList();
             this.updateCalculation();
         };
@@ -306,11 +347,13 @@ class VetCalcApp {
                     this.weight = value;
                 }
                 this.updateSectionVisibility();
+                this.updateSelectionInfo();
                 this.renderDrugList();
                 this.updateCalculation();
             } else {
                 this.weight = null;
                 this.updateSectionVisibility();
+                this.updateSelectionInfo();
                 this.renderDrugList();
                 this.hideResult();
             }
@@ -354,6 +397,7 @@ class VetCalcApp {
                 this.weight = weightKg;
                 this.weightManuallySet = true; // User manually selected weight
                 this.updateSectionVisibility();
+                this.updateSelectionInfo();
                 this.renderDrugList();
                 this.updateCalculation();
             });
@@ -465,6 +509,7 @@ class VetCalcApp {
                 container.querySelectorAll('li').forEach(i => i.classList.remove('active-drug'));
                 li.classList.add('active-drug');
                 this.selectedDrug = drug;
+                this.updateSelectionInfo();
                 this.updateCalculation();
             });
 

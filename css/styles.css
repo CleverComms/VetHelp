@@ -90,6 +90,45 @@ body {
     font-weight: 600;
 }
 
+/* Selection Info Bar (sticky) */
+.selection-info {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 8px 16px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 99;
+    border-bottom: 1px solid var(--separator);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.selection-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.selection-label {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    font-weight: 500;
+}
+
+.selection-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.selection-value.not-set {
+    color: var(--text-tertiary);
+    font-weight: 400;
+}
+
 /* Main Content */
 .page-content {
     padding: 12px;
