@@ -156,6 +156,9 @@ class VetCalcApp {
         const plusBtn = document.getElementById('weight-plus');
         const input = document.getElementById('weight-input');
 
+        let holdInterval = null;
+        let holdTimeout = null;
+
         // Get increment based on unit and current value
         const getIncrement = () => {
             if (this.weightUnit === 'g') {
@@ -171,7 +174,8 @@ class VetCalcApp {
             }
         };
 
-        minusBtn.addEventListener('click', () => {
+        // Decrease weight
+        const decreaseWeight = () => {
             const currentVal = parseFloat(input.value) || 0;
             const increment = getIncrement();
             const newVal = Math.max(0, currentVal - increment);
@@ -194,9 +198,10 @@ class VetCalcApp {
                 this.renderDrugList();
                 this.hideResult();
             }
-        });
+        };
 
-        plusBtn.addEventListener('click', () => {
+        // Increase weight
+        const increaseWeight = () => {
             const currentVal = parseFloat(input.value) || 0;
             const increment = getIncrement();
             const newVal = currentVal + increment;
@@ -212,7 +217,57 @@ class VetCalcApp {
             this.updateSectionVisibility();
             this.renderDrugList();
             this.updateCalculation();
+        };
+
+        // Stop hold repeat
+        const stopHold = () => {
+            if (holdTimeout) {
+                clearTimeout(holdTimeout);
+                holdTimeout = null;
+            }
+            if (holdInterval) {
+                clearInterval(holdInterval);
+                holdInterval = null;
+            }
+        };
+
+        // Start hold repeat for a function
+        const startHold = (actionFn) => {
+            stopHold();
+            actionFn(); // Execute immediately
+            // Start repeating after initial delay
+            holdTimeout = setTimeout(() => {
+                holdInterval = setInterval(actionFn, 100); // Repeat every 100ms
+            }, 400); // Initial delay before repeating
+        };
+
+        // Minus button - touch and hold
+        minusBtn.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            startHold(decreaseWeight);
         });
+        minusBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            startHold(decreaseWeight);
+        });
+        minusBtn.addEventListener('mouseup', stopHold);
+        minusBtn.addEventListener('mouseleave', stopHold);
+        minusBtn.addEventListener('touchend', stopHold);
+        minusBtn.addEventListener('touchcancel', stopHold);
+
+        // Plus button - touch and hold
+        plusBtn.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            startHold(increaseWeight);
+        });
+        plusBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            startHold(increaseWeight);
+        });
+        plusBtn.addEventListener('mouseup', stopHold);
+        plusBtn.addEventListener('mouseleave', stopHold);
+        plusBtn.addEventListener('touchend', stopHold);
+        plusBtn.addEventListener('touchcancel', stopHold);
     }
 
     setupWeightInput() {
