@@ -114,7 +114,12 @@
         <!-- Weight Input -->
         <section class="section" id="weight-section">
             <h2>2. Enter Weight</h2>
+            <div class="weight-unit-toggle" id="weight-unit-toggle">
+                <button class="unit-btn active" data-unit="kg">kg</button>
+                <button class="unit-btn" data-unit="g">grams</button>
+            </div>
             <div class="weight-input-group">
+                <button class="weight-adjust-btn" id="weight-minus" aria-label="Decrease weight">−</button>
                 <input type="number"
                        id="weight-input"
                        class="weight-input"
@@ -122,7 +127,8 @@
                        step="0.01"
                        min="0.01"
                        inputmode="decimal">
-                <span class="weight-unit">kg</span>
+                <span class="weight-unit" id="weight-unit-label">kg</span>
+                <button class="weight-adjust-btn" id="weight-plus" aria-label="Increase weight">+</button>
             </div>
             <div class="weight-presets" id="weight-presets">
                 <!-- Populated by JavaScript based on species -->

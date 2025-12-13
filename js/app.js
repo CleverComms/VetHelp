@@ -7,8 +7,12 @@ class VetCalcApp {
     constructor() {
         this.selectedSpecies = null;
         this.selectedDrug = null;
-        this.weight = null;
+        this.weight = null; // Always stored in kg internally
+        this.weightUnit = 'kg'; // 'kg' or 'g'
         this.activeCategory = 'pain_relief'; // Start with pain relief
+
+        // Species that typically use grams
+        this.smallAnimals = ['hamster', 'rat', 'guinea_pig', 'ferret'];
 
         this.init();
     }
@@ -40,6 +44,8 @@ class VetCalcApp {
         // Setup event listeners
         this.setupSpeciesSelection();
         this.setupWeightInput();
+        this.setupWeightUnitToggle();
+        this.setupWeightAdjustButtons();
         this.setupDrugSearch();
         this.setupCategories();
 
@@ -62,10 +68,122 @@ class VetCalcApp {
                 btn.classList.add('active');
 
                 this.selectedSpecies = btn.dataset.species;
+
+                // Auto-switch to grams for small animals
+                if (this.smallAnimals.includes(this.selectedSpecies)) {
+                    this.setWeightUnit('g');
+                } else {
+                    this.setWeightUnit('kg');
+                }
+
                 this.updateWeightPresets();
                 this.renderDrugList();
                 this.updateCalculation();
             });
+        });
+    }
+
+    setupWeightUnitToggle() {
+        const toggleContainer = document.getElementById('weight-unit-toggle');
+        const buttons = toggleContainer.querySelectorAll('.unit-btn');
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.setWeightUnit(btn.dataset.unit);
+            });
+        });
+    }
+
+    setWeightUnit(unit) {
+        this.weightUnit = unit;
+
+        // Update toggle buttons
+        const buttons = document.querySelectorAll('.unit-btn');
+        buttons.forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.unit === unit);
+        });
+
+        // Update label
+        document.getElementById('weight-unit-label').textContent = unit;
+
+        // Update input step and placeholder
+        const input = document.getElementById('weight-input');
+        if (unit === 'g') {
+            input.step = '1';
+            input.placeholder = '0';
+        } else {
+            input.step = '0.01';
+            input.placeholder = '0.00';
+        }
+
+        // Convert displayed value if we have a weight
+        if (this.weight !== null) {
+            if (unit === 'g') {
+                input.value = (this.weight * 1000).toFixed(0);
+            } else {
+                input.value = this.weight.toFixed(2);
+            }
+        }
+
+        // Update presets display
+        this.updateWeightPresets();
+    }
+
+    setupWeightAdjustButtons() {
+        const minusBtn = document.getElementById('weight-minus');
+        const plusBtn = document.getElementById('weight-plus');
+        const input = document.getElementById('weight-input');
+
+        // Get increment based on unit and current value
+        const getIncrement = () => {
+            if (this.weightUnit === 'g') {
+                const currentVal = parseFloat(input.value) || 0;
+                if (currentVal < 100) return 5;
+                if (currentVal < 500) return 10;
+                return 50;
+            } else {
+                const currentVal = parseFloat(input.value) || 0;
+                if (currentVal < 1) return 0.1;
+                if (currentVal < 10) return 0.5;
+                return 1;
+            }
+        };
+
+        minusBtn.addEventListener('click', () => {
+            const currentVal = parseFloat(input.value) || 0;
+            const increment = getIncrement();
+            const newVal = Math.max(0, currentVal - increment);
+
+            if (this.weightUnit === 'g') {
+                input.value = newVal.toFixed(0);
+                this.weight = newVal / 1000;
+            } else {
+                input.value = newVal.toFixed(2);
+                this.weight = newVal;
+            }
+
+            if (this.weight > 0) {
+                this.updateCalculation();
+            } else {
+                this.weight = null;
+                this.hideResult();
+            }
+        });
+
+        plusBtn.addEventListener('click', () => {
+            const currentVal = parseFloat(input.value) || 0;
+            const increment = getIncrement();
+            const newVal = currentVal + increment;
+
+            if (this.weightUnit === 'g') {
+                input.value = newVal.toFixed(0);
+                this.weight = newVal / 1000;
+            } else {
+                input.value = newVal.toFixed(2);
+                this.weight = newVal;
+            }
+
+            this.updateCalculation();
         });
     }
 
@@ -75,7 +193,12 @@ class VetCalcApp {
         weightInput.addEventListener('input', (e) => {
             const value = parseFloat(e.target.value);
             if (!isNaN(value) && value > 0) {
-                this.weight = value;
+                // Convert to kg if input is in grams
+                if (this.weightUnit === 'g') {
+                    this.weight = value / 1000;
+                } else {
+                    this.weight = value;
+                }
                 this.updateCalculation();
             } else {
                 this.weight = null;
@@ -99,13 +222,26 @@ class VetCalcApp {
 
         const presets = DRUG_DATABASE.weightPresets[this.selectedSpecies] || [];
 
-        presets.forEach(weight => {
+        presets.forEach(weightKg => {
             const btn = document.createElement('button');
             btn.className = 'weight-preset-btn';
-            btn.textContent = weight < 1 ? `${weight * 1000}g` : `${weight}kg`;
+
+            // Display in current unit
+            if (this.weightUnit === 'g') {
+                const grams = weightKg * 1000;
+                btn.textContent = `${grams.toFixed(0)}g`;
+            } else {
+                btn.textContent = `${weightKg.toFixed(2)}kg`;
+            }
+
             btn.addEventListener('click', () => {
-                document.getElementById('weight-input').value = weight;
-                this.weight = weight;
+                const input = document.getElementById('weight-input');
+                if (this.weightUnit === 'g') {
+                    input.value = (weightKg * 1000).toFixed(0);
+                } else {
+                    input.value = weightKg.toFixed(2);
+                }
+                this.weight = weightKg;
                 this.updateCalculation();
             });
             container.appendChild(btn);
@@ -267,7 +403,7 @@ class VetCalcApp {
     }
 
     calculateDose(dose, speciesData) {
-        const weight = this.weight;
+        const weight = this.weight; // Always in kg
         const concentration = this.selectedDrug.concentrationValue;
         const calculationType = speciesData.calculationType;
 
@@ -284,8 +420,8 @@ class VetCalcApp {
                     isRange: true,
                     minDose: minDose,
                     maxDose: maxDose,
-                    minResult: this.formatNumber(minVolume),
-                    maxResult: this.formatNumber(maxVolume),
+                    minResult: minVolume.toFixed(2),
+                    maxResult: maxVolume.toFixed(2),
                     unit: 'ml',
                     minTotalMg: minDose * weight,
                     maxTotalMg: maxDose * weight
@@ -296,8 +432,8 @@ class VetCalcApp {
                     isRange: true,
                     minDose: minDose,
                     maxDose: maxDose,
-                    minResult: this.formatNumber(minDose * weight),
-                    maxResult: this.formatNumber(maxDose * weight),
+                    minResult: (minDose * weight).toFixed(2),
+                    maxResult: (maxDose * weight).toFixed(2),
                     unit: 'mg total',
                     minTotalMg: minDose * weight,
                     maxTotalMg: maxDose * weight
@@ -312,7 +448,7 @@ class VetCalcApp {
                 return {
                     isRange: false,
                     dose: dose,
-                    result: this.formatNumber(volume),
+                    result: volume.toFixed(2),
                     unit: 'ml',
                     totalMg: totalMg
                 };
@@ -320,7 +456,7 @@ class VetCalcApp {
                 return {
                     isRange: false,
                     dose: dose,
-                    result: this.formatNumber(totalMg),
+                    result: totalMg.toFixed(2),
                     unit: 'mg total',
                     totalMg: totalMg
                 };
@@ -328,16 +464,12 @@ class VetCalcApp {
         }
     }
 
-    formatNumber(num) {
-        if (num < 0.01) {
-            return num.toFixed(4);
-        } else if (num < 0.1) {
-            return num.toFixed(3);
-        } else if (num < 10) {
-            return num.toFixed(2);
-        } else {
-            return num.toFixed(1);
+    formatWeight() {
+        // Format weight for display in calculation breakdown
+        if (this.weightUnit === 'g') {
+            return `${(this.weight * 1000).toFixed(0)}g (${this.weight.toFixed(2)} kg)`;
         }
+        return `${this.weight.toFixed(2)} kg`;
     }
 
     renderCalculationBreakdown(dose, speciesData, calculation) {
@@ -351,7 +483,7 @@ class VetCalcApp {
             html += `
                 <div class="calc-step">
                     <span class="calc-label">Patient weight:</span>
-                    <span class="calc-value">${this.weight} kg</span>
+                    <span class="calc-value">${this.formatWeight()}</span>
                 </div>
                 <div class="calc-step">
                     <span class="calc-label">Dose range:</span>
@@ -367,11 +499,11 @@ class VetCalcApp {
                     </div>
                     <div class="calc-step">
                         <span class="calc-label">Min dose calculation:</span>
-                        <span class="calc-value">(${calculation.minDose} × ${this.weight}) ÷ ${concentration}</span>
+                        <span class="calc-value">(${calculation.minDose} × ${this.weight.toFixed(2)}) ÷ ${concentration}</span>
                     </div>
                     <div class="calc-step">
                         <span class="calc-label">Min total mg:</span>
-                        <span class="calc-value">${this.formatNumber(calculation.minTotalMg)} mg</span>
+                        <span class="calc-value">${calculation.minTotalMg.toFixed(2)} mg</span>
                     </div>
                     <div class="calc-step">
                         <span class="calc-label">Min volume:</span>
@@ -379,11 +511,11 @@ class VetCalcApp {
                     </div>
                     <div class="calc-step">
                         <span class="calc-label">Max dose calculation:</span>
-                        <span class="calc-value">(${calculation.maxDose} × ${this.weight}) ÷ ${concentration}</span>
+                        <span class="calc-value">(${calculation.maxDose} × ${this.weight.toFixed(2)}) ÷ ${concentration}</span>
                     </div>
                     <div class="calc-step">
                         <span class="calc-label">Max total mg:</span>
-                        <span class="calc-value">${this.formatNumber(calculation.maxTotalMg)} mg</span>
+                        <span class="calc-value">${calculation.maxTotalMg.toFixed(2)} mg</span>
                     </div>
                     <div class="calc-step">
                         <span class="calc-label">Max volume:</span>
@@ -394,7 +526,7 @@ class VetCalcApp {
                 html += `
                     <div class="calc-step">
                         <span class="calc-label">Min calculation:</span>
-                        <span class="calc-value">${calculation.minDose} mg/kg × ${this.weight} kg</span>
+                        <span class="calc-value">${calculation.minDose} mg/kg × ${this.weight.toFixed(2)} kg</span>
                     </div>
                     <div class="calc-step">
                         <span class="calc-label">Min total dose:</span>
@@ -402,7 +534,7 @@ class VetCalcApp {
                     </div>
                     <div class="calc-step">
                         <span class="calc-label">Max calculation:</span>
-                        <span class="calc-value">${calculation.maxDose} mg/kg × ${this.weight} kg</span>
+                        <span class="calc-value">${calculation.maxDose} mg/kg × ${this.weight.toFixed(2)} kg</span>
                     </div>
                     <div class="calc-step">
                         <span class="calc-label">Max total dose:</span>
@@ -414,7 +546,7 @@ class VetCalcApp {
             html += `
                 <div class="calc-step">
                     <span class="calc-label">Patient weight:</span>
-                    <span class="calc-value">${this.weight} kg</span>
+                    <span class="calc-value">${this.formatWeight()}</span>
                 </div>
                 <div class="calc-step">
                     <span class="calc-label">Dose rate:</span>
@@ -430,18 +562,18 @@ class VetCalcApp {
                     </div>
                     <div class="calc-step">
                         <span class="calc-label">Total mg required:</span>
-                        <span class="calc-value">${calculation.dose} × ${this.weight} = ${this.formatNumber(calculation.totalMg)} mg</span>
+                        <span class="calc-value">${calculation.dose} × ${this.weight.toFixed(2)} = ${calculation.totalMg.toFixed(2)} mg</span>
                     </div>
                     <div class="calc-step">
                         <span class="calc-label">Volume calculation:</span>
-                        <span class="calc-value">${this.formatNumber(calculation.totalMg)} ÷ ${concentration} = ${calculation.result} ml</span>
+                        <span class="calc-value">${calculation.totalMg.toFixed(2)} ÷ ${concentration} = ${calculation.result} ml</span>
                     </div>
                 `;
             } else {
                 html += `
                     <div class="calc-step">
                         <span class="calc-label">Calculation:</span>
-                        <span class="calc-value">${calculation.dose} mg/kg × ${this.weight} kg</span>
+                        <span class="calc-value">${calculation.dose} mg/kg × ${this.weight.toFixed(2)} kg</span>
                     </div>
                     <div class="calc-step">
                         <span class="calc-label">Total dose:</span>
@@ -470,9 +602,9 @@ class VetCalcApp {
 
             if (calculation.unit === 'ml' && concentration) {
                 const loadingMl = loadingMg / concentration;
-                loadingDisplay = `${this.formatNumber(loadingMl)} ml (${this.formatNumber(loadingMg)} mg)`;
+                loadingDisplay = `${loadingMl.toFixed(2)} ml (${loadingMg.toFixed(2)} mg)`;
             } else {
-                loadingDisplay = `${this.formatNumber(loadingMg)} mg`;
+                loadingDisplay = `${loadingMg.toFixed(2)} mg`;
             }
 
             html += `
