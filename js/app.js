@@ -41,6 +41,12 @@ class VetCalcApp {
             versionEl.textContent = APP_VERSION;
         }
 
+        // Set splash version
+        const splashVersionEl = document.getElementById('splash-version');
+        if (splashVersionEl) {
+            splashVersionEl.textContent = 'v' + APP_VERSION;
+        }
+
         // Setup event listeners
         this.setupSpeciesSelection();
         this.setupWeightInput();
