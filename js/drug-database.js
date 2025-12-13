@@ -8,7 +8,7 @@
  * Dosage sources: BSAVA Small Animal Formulary, VMD product literature
  */
 
-const APP_VERSION = '1.3.0';
+const APP_VERSION = '1.4.0';
 
 const DRUG_DATABASE = {
     // Drug categories
@@ -171,6 +171,36 @@ const DRUG_DATABASE = {
                         'Monitor for GI stasis'
                     ],
                     calculationType: 'volume'
+                },
+                hamster: {
+                    dose: 0.2,
+                    route: 'SC',
+                    frequency: 'Once daily',
+                    notes: [
+                        'Use for post-operative analgesia',
+                        'Monitor for GI stasis'
+                    ],
+                    calculationType: 'volume'
+                },
+                ferret: {
+                    dose: 0.2,
+                    route: 'SC',
+                    frequency: 'Once daily',
+                    notes: [
+                        'Effective NSAID for ferrets',
+                        'Monitor for GI side effects'
+                    ],
+                    calculationType: 'volume'
+                },
+                rat: {
+                    dose: 1,
+                    route: 'SC',
+                    frequency: 'Once daily',
+                    notes: [
+                        'Higher dose in rats',
+                        'Good post-operative analgesia'
+                    ],
+                    calculationType: 'volume'
                 }
             }
         },
@@ -294,6 +324,16 @@ const DRUG_DATABASE = {
                     frequency: 'Every 8-12 hours',
                     notes: [
                         'Good post-operative option'
+                    ],
+                    calculationType: 'volume'
+                },
+                hamster: {
+                    dose: 0.05,
+                    route: 'SC',
+                    frequency: 'Every 6-8 hours',
+                    notes: [
+                        'Essential for post-operative pain',
+                        'Monitor for respiratory depression'
                     ],
                     calculationType: 'volume'
                 }
@@ -600,6 +640,26 @@ const DRUG_DATABASE = {
                     frequency: 'Once daily',
                     notes: [
                         'Useful for respiratory disease'
+                    ],
+                    calculationType: 'volume'
+                },
+                hamster: {
+                    dose: 10,
+                    route: 'SC/PO',
+                    frequency: 'Once daily',
+                    notes: [
+                        'Good for respiratory and skin infections',
+                        'Dilute for accurate dosing in small patients'
+                    ],
+                    calculationType: 'volume'
+                },
+                ferret: {
+                    dose: 5,
+                    route: 'SC/PO',
+                    frequency: 'Once daily',
+                    notes: [
+                        'Commonly used antibiotic in ferrets',
+                        'Good tissue penetration'
                     ],
                     calculationType: 'volume'
                 }
@@ -1340,6 +1400,25 @@ const DRUG_DATABASE = {
                     frequency: 'Every 8 hours',
                     notes: [
                         'GI stasis support'
+                    ],
+                    calculationType: 'volume'
+                },
+                hamster: {
+                    dose: 0.5,
+                    route: 'SC',
+                    frequency: 'Every 8 hours',
+                    notes: [
+                        'GI stasis support',
+                        'Important for post-operative recovery'
+                    ],
+                    calculationType: 'volume'
+                },
+                rat: {
+                    dose: 0.5,
+                    route: 'SC',
+                    frequency: 'Every 8 hours',
+                    notes: [
+                        'Prokinetic for GI stasis'
                     ],
                     calculationType: 'volume'
                 }

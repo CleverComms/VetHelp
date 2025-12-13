@@ -12,7 +12,7 @@ class VetCalcApp {
         this.activeCategory = 'pain_relief'; // Start with pain relief
 
         // Species that typically use grams
-        this.smallAnimals = ['hamster', 'rat', 'guinea_pig', 'ferret'];
+        this.smallAnimals = ['hamster', 'rat', 'guinea_pig'];
 
         this.init();
     }
