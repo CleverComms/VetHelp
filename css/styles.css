@@ -614,18 +614,31 @@ li.active-drug {
     right: 0;
     background: linear-gradient(135deg, #ff9500 0%, #ff3b30 100%);
     color: white;
-    padding: 12px;
+    padding: 12px 16px;
     padding-top: calc(env(safe-area-inset-top, 0px) + 12px);
     z-index: 10000;
     display: none;
 }
 
-.update-content p { margin: 0 0 10px; font-size: 13px; }
-.grid { display: flex; gap: 8px; }
+.update-title {
+    font-size: 15px;
+    margin: 0 0 4px;
+}
+
+.update-text {
+    font-size: 13px;
+    margin: 0 0 12px;
+    opacity: 0.9;
+}
+
+.update-buttons {
+    display: flex;
+    gap: 8px;
+}
 
 .button {
     flex: 1;
-    padding: 8px 14px;
+    padding: 10px 14px;
     border: none;
     border-radius: 8px;
     font-size: 14px;
@@ -634,7 +647,7 @@ li.active-drug {
 }
 
 .button-fill { background: white; color: #ff6600; }
-.button:not(.button-fill) { background: rgba(255, 255, 255, 0.2); color: white; }
+.button:not(.button-fill) { background: rgba(255, 255, 255, 0.25); color: white; }
 
 /* Utilities */
 .text-align-center { text-align: center; }
