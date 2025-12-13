@@ -122,9 +122,9 @@ input, select, textarea {
 }
 
 .selection-info.visible {
-    max-height: 80px;
+    max-height: 100px;
     opacity: 1;
-    padding: 8px 16px 10px;
+    padding: 10px 16px 12px;
     display: flex;
     gap: 0;
 }
@@ -153,16 +153,16 @@ input, select, textarea {
 }
 
 .selection-label {
-    font-size: 10px;
+    font-size: 11px;
     color: var(--text-tertiary);
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-bottom: 2px;
+    margin-bottom: 3px;
 }
 
 .selection-value {
-    font-size: 14px;
+    font-size: 17px;
     font-weight: 600;
     color: var(--primary);
     white-space: nowrap;
@@ -198,7 +198,7 @@ input, select, textarea {
 }
 
 .selection-info-spacer.visible {
-    height: 50px;
+    height: 58px;
 }
 
 /* Main Content */
@@ -210,12 +210,12 @@ input, select, textarea {
 
 /* Section Titles */
 .block-title {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
     color: var(--text-tertiary);
     text-transform: uppercase;
     letter-spacing: 0.3px;
-    margin: 16px 0 6px 4px;
+    margin: 20px 0 8px 4px;
 }
 
 /* Cards / Blocks */
@@ -235,16 +235,16 @@ input, select, textarea {
 }
 
 .warning-block p {
-    font-size: 12px;
+    font-size: 14px;
     color: #996600;
 }
 
 /* Species & Category Scroll */
 .species-scroll, .category-scroll {
     display: flex;
-    gap: 6px;
+    gap: 8px;
     overflow-x: auto;
-    padding: 8px 10px;
+    padding: 10px 12px;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
 }
@@ -258,8 +258,8 @@ input, select, textarea {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-width: 64px;
-    padding: 8px 6px;
+    min-width: 76px;
+    padding: 12px 10px;
     border: none;
     border-radius: var(--radius);
     background: var(--bg-tertiary);
@@ -278,9 +278,9 @@ input, select, textarea {
 }
 
 .species-icon {
-    width: 28px;
-    height: 28px;
-    margin-bottom: 4px;
+    width: 34px;
+    height: 34px;
+    margin-bottom: 6px;
     color: var(--text-tertiary);
 }
 
@@ -288,7 +288,7 @@ input, select, textarea {
 .species-btn.active .species-icon { color: white; }
 
 .species-name {
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 500;
     color: var(--text-tertiary);
     white-space: nowrap;
@@ -305,8 +305,8 @@ input, select, textarea {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-width: 72px;
-    padding: 10px 8px 8px;
+    min-width: 80px;
+    padding: 12px 10px 10px;
     border: none;
     border-radius: var(--radius);
     background: var(--bg-tertiary);
@@ -320,16 +320,16 @@ input, select, textarea {
 }
 
 .category-icon {
-    width: 22px;
-    height: 22px;
-    margin-bottom: 3px;
+    width: 28px;
+    height: 28px;
+    margin-bottom: 5px;
     color: var(--text-tertiary);
 }
 
 .category-icon svg { width: 100%; height: 100%; }
 
 .category-name {
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 500;
     color: var(--text-tertiary);
     white-space: nowrap;
@@ -392,12 +392,12 @@ input, select, textarea {
 
 .stepper-button-minus,
 .stepper-button-plus {
-    width: 40px;
-    height: 40px;
+    width: 52px;
+    height: 52px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 22px;
+    font-size: 28px;
     font-weight: 300;
     color: var(--primary);
     cursor: pointer;
@@ -409,12 +409,12 @@ input, select, textarea {
 .stepper-button-plus::before { content: '+'; }
 
 .stepper-input-wrap input {
-    width: 80px;
-    height: 40px;
+    width: 90px;
+    height: 52px;
     border: none;
     background: transparent;
     text-align: center;
-    font-size: 18px;
+    font-size: 22px !important;
     font-weight: 600;
     color: var(--text-primary);
 }
@@ -422,7 +422,7 @@ input, select, textarea {
 .stepper-input-wrap input:focus { outline: none; }
 
 .weight-unit-label {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
     color: var(--text-tertiary);
 }
@@ -431,17 +431,17 @@ input, select, textarea {
 .weight-presets {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
+    gap: 8px;
     justify-content: center;
-    margin-top: 8px;
+    margin-top: 12px;
 }
 
 .weight-preset-btn {
-    padding: 6px 12px;
+    padding: 10px 16px;
     background: rgba(0, 122, 255, 0.1);
     border: none;
     border-radius: 100px;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 500;
     color: var(--primary);
     cursor: pointer;
@@ -469,7 +469,7 @@ input, select, textarea {
 
 .item-content {
     display: block;
-    padding: 10px 12px;
+    padding: 14px 14px;
     text-decoration: none;
     color: inherit;
 }
@@ -478,26 +478,26 @@ input, select, textarea {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
 }
 
 .item-title {
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 600;
     color: var(--text-primary);
 }
 
 .item-subtitle {
-    font-size: 12px;
+    font-size: 14px;
     color: var(--text-tertiary);
 }
 
 .badge {
     background: var(--primary);
     color: white;
-    padding: 2px 6px;
+    padding: 3px 8px;
     border-radius: 4px;
-    font-size: 9px;
+    font-size: 10px;
     font-weight: 600;
     text-transform: uppercase;
 }
@@ -512,10 +512,10 @@ input, select, textarea {
 
 .item-input-wrap input {
     width: 100%;
-    padding: 8px 0;
+    padding: 12px 0;
     border: none;
     background: transparent;
-    font-size: 15px;
+    font-size: 17px !important;
 }
 
 .item-input-wrap input:focus { outline: none; }
