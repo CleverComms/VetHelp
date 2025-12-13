@@ -76,6 +76,7 @@ class VetCalcApp {
         const weightSection = document.getElementById('weight-section');
         const categorySection = document.getElementById('category-section');
         const drugsSection = document.getElementById('drugs-section');
+        const pageContent = document.querySelector('.page-content');
 
         // Show weight section if species is selected
         if (this.selectedSpecies) {
@@ -90,9 +91,13 @@ class VetCalcApp {
         if (shouldShowDrugs) {
             categorySection.classList.add('visible');
             drugsSection.classList.add('visible');
+            // Add scroll padding when categories/drugs are shown
+            pageContent.classList.add('has-scroll-padding');
         } else {
             categorySection.classList.remove('visible');
             drugsSection.classList.remove('visible');
+            // Remove scroll padding when only species/weight visible
+            pageContent.classList.remove('has-scroll-padding');
         }
     }
 
