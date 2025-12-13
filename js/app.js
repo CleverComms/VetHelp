@@ -96,6 +96,15 @@ class VetCalcApp {
         }
     }
 
+    animateValue(element, newValue) {
+        const oldValue = element.textContent;
+        if (oldValue !== newValue) {
+            element.textContent = newValue;
+            element.classList.add('updated');
+            setTimeout(() => element.classList.remove('updated'), 300);
+        }
+    }
+
     updateSelectionInfo() {
         const infoBar = document.getElementById('selection-info');
         const spacer = document.getElementById('selection-info-spacer');
@@ -112,34 +121,37 @@ class VetCalcApp {
             spacer.classList.remove('visible');
         }
 
-        // Update species display
+        // Update species display with animation
         if (this.selectedSpecies) {
-            speciesDisplay.textContent = DRUG_DATABASE.speciesNames[this.selectedSpecies];
+            const newValue = DRUG_DATABASE.speciesNames[this.selectedSpecies];
+            this.animateValue(speciesDisplay, newValue);
             speciesDisplay.classList.remove('not-set');
         } else {
-            speciesDisplay.textContent = '—';
+            this.animateValue(speciesDisplay, '—');
             speciesDisplay.classList.add('not-set');
         }
 
-        // Update weight display
+        // Update weight display with animation
         if (this.weight) {
+            let newValue;
             if (this.weightUnit === 'g') {
-                weightDisplay.textContent = `${(this.weight * 1000).toFixed(0)}g`;
+                newValue = `${(this.weight * 1000).toFixed(0)}g`;
             } else {
-                weightDisplay.textContent = `${this.weight.toFixed(1)}kg`;
+                newValue = `${this.weight.toFixed(1)}kg`;
             }
+            this.animateValue(weightDisplay, newValue);
             weightDisplay.classList.remove('not-set');
         } else {
-            weightDisplay.textContent = '—';
+            this.animateValue(weightDisplay, '—');
             weightDisplay.classList.add('not-set');
         }
 
-        // Update drug display
+        // Update drug display with animation
         if (this.selectedDrug) {
-            drugDisplay.textContent = this.selectedDrug.name;
+            this.animateValue(drugDisplay, this.selectedDrug.name);
             drugDisplay.classList.remove('not-set');
         } else {
-            drugDisplay.textContent = '—';
+            this.animateValue(drugDisplay, '—');
             drugDisplay.classList.add('not-set');
         }
     }
