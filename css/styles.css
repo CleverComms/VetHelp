@@ -28,6 +28,12 @@
 
 html {
     font-size: 16px;
+    touch-action: manipulation;
+}
+
+/* Prevent zoom on iOS - ensure inputs are 16px+ */
+input, select, textarea {
+    font-size: 16px !important;
 }
 
 body {
@@ -362,35 +368,6 @@ body {
 }
 
 /* Weight Input */
-.weight-unit-toggle {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-}
-
-.unit-btn {
-    flex: 1;
-    padding: 0.75rem 1rem;
-    border: 2px solid var(--border-color);
-    background: white;
-    border-radius: var(--radius-sm);
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.unit-btn:hover {
-    border-color: var(--primary-light);
-}
-
-.unit-btn.active {
-    background: var(--primary-color);
-    border-color: var(--primary-color);
-    color: white;
-}
-
 .weight-input-group {
     display: flex;
     align-items: center;

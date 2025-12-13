@@ -44,7 +44,6 @@ class VetCalcApp {
         // Setup event listeners
         this.setupSpeciesSelection();
         this.setupWeightInput();
-        this.setupWeightUnitToggle();
         this.setupWeightAdjustButtons();
         this.setupDrugSearch();
         this.setupCategories();
@@ -83,25 +82,8 @@ class VetCalcApp {
         });
     }
 
-    setupWeightUnitToggle() {
-        const toggleContainer = document.getElementById('weight-unit-toggle');
-        const buttons = toggleContainer.querySelectorAll('.unit-btn');
-
-        buttons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                this.setWeightUnit(btn.dataset.unit);
-            });
-        });
-    }
-
     setWeightUnit(unit) {
         this.weightUnit = unit;
-
-        // Update toggle buttons
-        const buttons = document.querySelectorAll('.unit-btn');
-        buttons.forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.unit === unit);
-        });
 
         // Update label
         document.getElementById('weight-unit-label').textContent = unit;
