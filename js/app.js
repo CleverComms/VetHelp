@@ -294,7 +294,7 @@ class VetCalcApp {
                 if (!wasManuallySet) {
                     setTimeout(() => {
                         document.getElementById('category-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }, 150);
+                    }, 500);
                 }
             } else {
                 this.weight = null;
@@ -406,7 +406,7 @@ class VetCalcApp {
                 if (!wasManuallySet) {
                     setTimeout(() => {
                         document.getElementById('category-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }, 150);
+                    }, 500);
                 }
             } else {
                 this.weight = null;
@@ -463,7 +463,7 @@ class VetCalcApp {
                 if (!wasManuallySet) {
                     setTimeout(() => {
                         document.getElementById('category-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }, 150);
+                    }, 500);
                 }
             });
             container.appendChild(btn);
