@@ -233,6 +233,7 @@ input, select, textarea {
 .page-content {
     flex: 1;
     padding: 12px;
+    padding-bottom: 60vh; /* Extra space to allow sections to scroll to top */
     max-width: 500px;
     margin: 0 auto;
     width: 100%;
