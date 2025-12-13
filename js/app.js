@@ -248,7 +248,10 @@ class VetCalcApp {
             if (category.id === this.activeCategory) {
                 btn.classList.add('active');
             }
-            btn.textContent = `${category.icon} ${category.name}`;
+            btn.innerHTML = `
+                <span class="category-icon">${category.icon}</span>
+                <span class="category-name">${category.name}</span>
+            `;
             btn.dataset.category = category.id;
 
             btn.addEventListener('click', () => {
