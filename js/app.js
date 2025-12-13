@@ -73,14 +73,17 @@ class VetCalcApp {
     }
 
     updateSectionVisibility() {
+        const warningSection = document.getElementById('warning-section');
         const weightSection = document.getElementById('weight-section');
         const categorySection = document.getElementById('category-section');
         const drugsSection = document.getElementById('drugs-section');
 
-        // Show weight section if species is selected
+        // Show warning and weight sections if species is selected
         if (this.selectedSpecies) {
+            warningSection.classList.add('visible');
             weightSection.classList.add('visible');
         } else {
+            warningSection.classList.remove('visible');
             weightSection.classList.remove('visible');
         }
 
@@ -176,6 +179,8 @@ class VetCalcApp {
 
         buttons.forEach(btn => {
             btn.addEventListener('click', () => {
+                const isFirstSelection = !this.selectedSpecies;
+
                 // Remove active from all
                 buttons.forEach(b => b.classList.remove('active'));
                 // Add active to clicked
@@ -183,10 +188,7 @@ class VetCalcApp {
 
                 this.selectedSpecies = btn.dataset.species;
                 this.weightManuallySet = false; // Reset - user needs to confirm/update weight
-
-                // Animate weight section by briefly removing visible class
-                const weightSection = document.getElementById('weight-section');
-                weightSection.classList.remove('visible');
+                this.selectedDrug = null; // Clear selected drug when changing species
 
                 // Auto-switch to grams for small animals
                 if (this.smallAnimals.includes(this.selectedSpecies)) {
@@ -212,10 +214,19 @@ class VetCalcApp {
                 this.renderDrugList();
                 this.updateCalculation();
 
-                // Re-animate weight section after brief delay
+                // Update visibility - weight stays visible, categories/drugs animate out
+                if (isFirstSelection) {
+                    // First selection - animate everything in
+                    this.updateSectionVisibility();
+                } else {
+                    // Changing species - categories/drugs will animate out (weightManuallySet is false)
+                    // Weight stays visible
+                    this.updateSectionVisibility();
+                }
+
                 requestAnimationFrame(() => {
                     requestAnimationFrame(() => {
-                        this.updateSectionVisibility();
+                        // Ensure visibility is correct after state changes
                     });
                 });
             });

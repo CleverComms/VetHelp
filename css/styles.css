@@ -735,6 +735,7 @@ li.active-drug {
 #result-section { display: none; }
 
 /* Section Animations */
+#warning-section,
 #weight-section,
 #category-section,
 #drugs-section {
@@ -746,6 +747,7 @@ li.active-drug {
     overflow: hidden;
 }
 
+#warning-section.visible,
 #weight-section.visible,
 #category-section.visible,
 #drugs-section.visible {
@@ -757,6 +759,14 @@ li.active-drug {
 }
 
 /* Stagger the animations */
+#warning-section {
+    transition-delay: 0s;
+}
+
+#weight-section {
+    transition-delay: 0.05s;
+}
+
 #category-section {
     transition-delay: 0.1s;
 }
