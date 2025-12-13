@@ -99,9 +99,12 @@ class VetCalcApp {
     animateValue(element, newValue) {
         const oldValue = element.textContent;
         if (oldValue !== newValue) {
+            element.classList.remove('slide-up');
+            // Force reflow to restart animation
+            void element.offsetWidth;
             element.textContent = newValue;
-            element.classList.add('updated');
-            setTimeout(() => element.classList.remove('updated'), 300);
+            element.classList.add('slide-up');
+            setTimeout(() => element.classList.remove('slide-up'), 250);
         }
     }
 
