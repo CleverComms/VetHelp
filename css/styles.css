@@ -160,6 +160,11 @@ input, select, textarea {
     display: none;
 }
 
+/* Remove border when it's the last visible column */
+.selection-column.no-border {
+    border-right: none;
+}
+
 .selection-column-drug {
     flex: 1;
     min-width: 0;

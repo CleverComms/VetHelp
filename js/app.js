@@ -114,6 +114,7 @@ class VetCalcApp {
         const speciesDisplay = document.getElementById('selected-species-display');
         const weightDisplay = document.getElementById('selected-weight-display');
         const drugDisplay = document.getElementById('selected-drug-display');
+        const speciesColumn = document.getElementById('species-column');
         const weightColumn = document.getElementById('weight-column');
         const drugColumn = document.getElementById('drug-column');
 
@@ -136,8 +137,12 @@ class VetCalcApp {
             speciesDisplay.classList.add('not-set');
         }
 
+        // Determine visibility states
+        const weightVisible = this.weightManuallySet && this.weight;
+        const drugVisible = this.selectedDrug;
+
         // Show/hide weight column - only show when weight has been manually set
-        if (this.weightManuallySet && this.weight) {
+        if (weightVisible) {
             weightColumn.classList.remove('hidden');
             let newValue;
             if (this.weightUnit === 'g') {
@@ -152,13 +157,17 @@ class VetCalcApp {
         }
 
         // Show/hide drug column - only show when a drug is selected
-        if (this.selectedDrug) {
+        if (drugVisible) {
             drugColumn.classList.remove('hidden');
             this.animateValue(drugDisplay, this.selectedDrug.name);
             drugDisplay.classList.remove('not-set');
         } else {
             drugColumn.classList.add('hidden');
         }
+
+        // Update border visibility - remove right border from last visible column
+        speciesColumn.classList.toggle('no-border', !weightVisible && !drugVisible);
+        weightColumn.classList.toggle('no-border', !drugVisible);
     }
 
     setupSpeciesSelection() {
