@@ -19,6 +19,17 @@ class VetCalcApp {
         // Species that typically use grams
         this.smallAnimals = ['hamster', 'rat', 'guinea_pig'];
 
+        // Average weights for each species (in kg)
+        this.averageWeights = {
+            dog: 15,
+            cat: 4,
+            rabbit: 2,
+            guinea_pig: 0.9,
+            hamster: 0.04,
+            ferret: 1,
+            rat: 0.4
+        };
+
         this.setup();
     }
 
@@ -75,6 +86,18 @@ class VetCalcApp {
                     this.setWeightUnit('g');
                 } else {
                     this.setWeightUnit('kg');
+                }
+
+                // Auto-set average weight for this species
+                const avgWeight = this.averageWeights[this.selectedSpecies];
+                if (avgWeight) {
+                    this.weight = avgWeight;
+                    const input = document.getElementById('weight-input');
+                    if (this.weightUnit === 'g') {
+                        input.value = (avgWeight * 1000).toFixed(0);
+                    } else {
+                        input.value = avgWeight.toFixed(2);
+                    }
                 }
 
                 this.updateWeightPresets();
@@ -147,9 +170,11 @@ class VetCalcApp {
             }
 
             if (this.weight > 0) {
+                this.renderDrugList();
                 this.updateCalculation();
             } else {
                 this.weight = null;
+                this.renderDrugList();
                 this.hideResult();
             }
         });
@@ -167,6 +192,7 @@ class VetCalcApp {
                 this.weight = newVal;
             }
 
+            this.renderDrugList();
             this.updateCalculation();
         });
     }
@@ -183,9 +209,11 @@ class VetCalcApp {
                 } else {
                     this.weight = value;
                 }
+                this.renderDrugList();
                 this.updateCalculation();
             } else {
                 this.weight = null;
+                this.renderDrugList();
                 this.hideResult();
             }
         });
@@ -226,6 +254,7 @@ class VetCalcApp {
                     input.value = weightKg.toFixed(2);
                 }
                 this.weight = weightKg;
+                this.renderDrugList();
                 this.updateCalculation();
             });
             container.appendChild(btn);
@@ -271,6 +300,22 @@ class VetCalcApp {
     renderDrugList(searchQuery = '') {
         const container = document.getElementById('drug-list');
         container.innerHTML = '';
+
+        // Don't show drugs until species and weight are selected
+        if (!this.selectedSpecies || !this.weight) {
+            let message = 'Select a species';
+            if (this.selectedSpecies && !this.weight) {
+                message = 'Enter weight';
+            }
+            container.innerHTML = `
+                <li>
+                    <div class="no-drugs">
+                        <p>${message} to see available drugs.</p>
+                    </div>
+                </li>
+            `;
+            return;
+        }
 
         let drugs = DRUG_DATABASE.drugs;
 
