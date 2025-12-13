@@ -212,20 +212,12 @@ class VetCalcApp {
                 this.updateCalculation();
 
                 // Update visibility - weight stays visible, categories/drugs animate out
-                if (isFirstSelection) {
-                    // First selection - animate everything in
-                    this.updateSectionVisibility();
-                } else {
-                    // Changing species - categories/drugs will animate out (weightManuallySet is false)
-                    // Weight stays visible
-                    this.updateSectionVisibility();
-                }
+                this.updateSectionVisibility();
 
-                requestAnimationFrame(() => {
-                    requestAnimationFrame(() => {
-                        // Ensure visibility is correct after state changes
-                    });
-                });
+                // Scroll to weight section after selecting species
+                setTimeout(() => {
+                    document.getElementById('weight-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
             });
         });
     }
@@ -278,6 +270,7 @@ class VetCalcApp {
 
         // Decrease weight
         const decreaseWeight = () => {
+            const wasManuallySet = this.weightManuallySet;
             const currentVal = parseFloat(input.value) || 0;
             const increment = getIncrement();
             const newVal = Math.max(0, currentVal - increment);
@@ -297,6 +290,12 @@ class VetCalcApp {
                 this.updateSelectionInfo();
                 this.renderDrugList();
                 this.updateCalculation();
+                // Scroll to categories on first weight update
+                if (!wasManuallySet) {
+                    setTimeout(() => {
+                        document.getElementById('category-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 150);
+                }
             } else {
                 this.weight = null;
                 this.updateSectionVisibility();
@@ -308,6 +307,7 @@ class VetCalcApp {
 
         // Increase weight
         const increaseWeight = () => {
+            const wasManuallySet = this.weightManuallySet;
             const currentVal = parseFloat(input.value) || 0;
             const increment = getIncrement();
             const newVal = currentVal + increment;
@@ -325,6 +325,12 @@ class VetCalcApp {
             this.updateSelectionInfo();
             this.renderDrugList();
             this.updateCalculation();
+            // Scroll to categories on first weight update
+            if (!wasManuallySet) {
+                setTimeout(() => {
+                    document.getElementById('category-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 150);
+            }
         };
 
         // Stop hold repeat
@@ -382,6 +388,7 @@ class VetCalcApp {
         const weightInput = document.getElementById('weight-input');
 
         weightInput.addEventListener('input', (e) => {
+            const wasManuallySet = this.weightManuallySet;
             const value = parseFloat(e.target.value);
             this.weightManuallySet = true; // User manually changed weight
             if (!isNaN(value) && value > 0) {
@@ -395,6 +402,12 @@ class VetCalcApp {
                 this.updateSelectionInfo();
                 this.renderDrugList();
                 this.updateCalculation();
+                // Scroll to categories on first weight update
+                if (!wasManuallySet) {
+                    setTimeout(() => {
+                        document.getElementById('category-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 150);
+                }
             } else {
                 this.weight = null;
                 this.updateSectionVisibility();
@@ -433,6 +446,7 @@ class VetCalcApp {
             }
 
             btn.addEventListener('click', () => {
+                const wasManuallySet = this.weightManuallySet;
                 const input = document.getElementById('weight-input');
                 if (this.weightUnit === 'g') {
                     input.value = (weightKg * 1000).toFixed(0);
@@ -445,6 +459,12 @@ class VetCalcApp {
                 this.updateSelectionInfo();
                 this.renderDrugList();
                 this.updateCalculation();
+                // Scroll to categories on first weight selection
+                if (!wasManuallySet) {
+                    setTimeout(() => {
+                        document.getElementById('category-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 150);
+                }
             });
             container.appendChild(btn);
         });
@@ -480,6 +500,10 @@ class VetCalcApp {
                 btn.classList.add('active');
                 this.activeCategory = category.id;
                 this.renderDrugList();
+                // Scroll to drugs section
+                setTimeout(() => {
+                    document.getElementById('drugs-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
             });
 
             container.appendChild(btn);

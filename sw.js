@@ -3,7 +3,7 @@
  * Provides full offline functionality
  */
 
-const CACHE_NAME = 'vetcalc-v2.15.3';
+const CACHE_NAME = 'vetcalc-v2.15.4';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',

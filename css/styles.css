@@ -38,7 +38,7 @@ html {
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+    font-family: 'Onest', -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
     background: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.4;
