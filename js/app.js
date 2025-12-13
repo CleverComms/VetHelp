@@ -325,11 +325,11 @@ class VetCalcApp {
             this.updateSelectionInfo();
             this.renderDrugList();
             this.updateCalculation();
-            // Scroll to categories on first weight update
+            // Scroll to categories on first weight update (wait for section animations)
             if (!wasManuallySet) {
                 setTimeout(() => {
                     document.getElementById('category-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 150);
+                }, 500);
             }
         };
 
