@@ -3,31 +3,8 @@
  * Main Application Logic
  */
 
-// Always hide splash screen after timeout (fallback)
-setTimeout(function() {
-    const splash = document.getElementById('splash-screen');
-    if (splash) splash.classList.add('hidden');
-}, 2000);
-
 // Wait for DOM to be ready before initializing
 document.addEventListener('DOMContentLoaded', function() {
-    try {
-        // Initialize Framework7 if available
-        if (typeof Framework7 !== 'undefined') {
-            new Framework7({
-                el: '#app',
-                name: 'VetCalc',
-                theme: 'ios',
-                colors: {
-                    primary: '#007aff'
-                }
-            });
-        }
-    } catch (e) {
-        console.log('Framework7 not available, continuing without it');
-    }
-
-    // Initialize VetCalc
     new VetCalcApp();
 });
 
