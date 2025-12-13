@@ -294,11 +294,27 @@ body {
     gap: 0.5rem;
 }
 
-/* Species Grid */
-.species-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+/* Species Selection */
+.section-species {
+    padding-right: 0;
+    overflow: hidden;
+}
+
+.species-scroll {
+    display: flex;
     gap: 0.75rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 0.5rem;
+    padding-right: 1.25rem;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.species-scroll::-webkit-scrollbar {
+    display: none;
 }
 
 .species-btn {
@@ -306,12 +322,15 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    min-width: 80px;
     padding: 0.75rem 0.5rem;
     border: 2px solid var(--border-color);
     border-radius: var(--radius-md);
     background: white;
     cursor: pointer;
     transition: all 0.2s ease;
+    scroll-snap-align: start;
+    flex-shrink: 0;
 }
 
 .species-btn:hover {
@@ -325,14 +344,16 @@ body {
 }
 
 .species-icon {
-    font-size: 1.75rem;
-    margin-bottom: 0.25rem;
+    font-size: 2.5rem;
+    margin-bottom: 0.35rem;
+    line-height: 1;
 }
 
 .species-name {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     font-weight: 500;
     color: var(--text-secondary);
+    white-space: nowrap;
 }
 
 .species-btn.active .species-name {
@@ -689,21 +710,17 @@ body {
 
 /* Responsive */
 @media (max-width: 480px) {
-    .species-grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 0.5rem;
-    }
-
     .species-btn {
-        padding: 0.5rem 0.25rem;
+        min-width: 72px;
+        padding: 0.5rem 0.4rem;
     }
 
     .species-icon {
-        font-size: 1.5rem;
+        font-size: 2rem;
     }
 
     .species-name {
-        font-size: 0.65rem;
+        font-size: 0.7rem;
     }
 
     .weight-input {
@@ -750,7 +767,8 @@ body {
     .splash-screen,
     .update-banner,
     .offline-indicator,
-    .species-grid,
+    .species-scroll,
+    .weight-unit-toggle,
     .weight-input-group,
     .weight-presets,
     .drug-search,

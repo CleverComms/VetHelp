@@ -8,7 +8,7 @@
  * Dosage sources: BSAVA Small Animal Formulary, VMD product literature
  */
 
-const APP_VERSION = '1.1.0';
+const APP_VERSION = '1.2.0';
 
 const DRUG_DATABASE = {
     // Drug categories
@@ -29,8 +29,7 @@ const DRUG_DATABASE = {
         guinea_pig: [0.5, 0.7, 0.9, 1.0, 1.2],
         hamster: [0.03, 0.04, 0.05, 0.1, 0.15],
         ferret: [0.5, 0.7, 1.0, 1.5, 2.0],
-        rat: [0.2, 0.3, 0.4, 0.5, 0.6],
-        horse: [200, 300, 400, 500, 600]
+        rat: [0.2, 0.3, 0.4, 0.5, 0.6]
     },
 
     // Species display names
@@ -41,8 +40,7 @@ const DRUG_DATABASE = {
         guinea_pig: 'Guinea Pig',
         hamster: 'Hamster',
         ferret: 'Ferret',
-        rat: 'Rat',
-        horse: 'Horse'
+        rat: 'Rat'
     },
 
     /**
@@ -873,17 +871,6 @@ const DRUG_DATABASE = {
                         'Causes hypotension'
                     ],
                     calculationType: 'volume'
-                },
-                horse: {
-                    dose: [0.03, 0.05],
-                    route: 'IV/IM',
-                    frequency: 'Single dose',
-                    notes: [
-                        'Standing sedation',
-                        'Causes penile prolapse in stallions',
-                        'Avoid in breeding stallions'
-                    ],
-                    calculationType: 'volume'
                 }
             }
         },
@@ -915,17 +902,6 @@ const DRUG_DATABASE = {
                         'Useful premed in cats',
                         'Short acting',
                         'Good sedative component'
-                    ],
-                    calculationType: 'volume'
-                },
-                horse: {
-                    dose: 0.1,
-                    route: 'IV',
-                    frequency: 'Single dose or every 3-4 hours',
-                    notes: [
-                        'Standing sedation with alpha-2',
-                        'Antitussive',
-                        'Short duration'
                     ],
                     calculationType: 'volume'
                 },
