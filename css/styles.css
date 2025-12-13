@@ -101,6 +101,12 @@ input, select, textarea {
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .offline-badge .badge {
     background: rgba(255, 255, 255, 0.25);
     color: white;
@@ -108,6 +114,30 @@ input, select, textarea {
     border-radius: 8px;
     font-size: 11px;
     font-weight: 600;
+}
+
+.reset-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease-out;
+}
+
+.reset-btn svg {
+    width: 18px;
+    height: 18px;
+    color: white;
+}
+
+.reset-btn:active {
+    transform: scale(0.9);
+    background: rgba(255, 255, 255, 0.35);
 }
 
 /* Selection Info Bar - Liquid Glass */

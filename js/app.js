@@ -61,6 +61,7 @@ class VetCalcApp {
         this.setupWeightAdjustButtons();
         this.setupDrugSearch();
         this.setupCategories();
+        this.setupResetButton();
 
         // Initialize drug list with pain relief category
         this.renderDrugList();
@@ -70,6 +71,61 @@ class VetCalcApp {
 
         // Hide category and drugs sections initially
         this.updateSectionVisibility();
+    }
+
+    setupResetButton() {
+        const resetBtn = document.getElementById('reset-btn');
+        resetBtn.addEventListener('click', () => this.resetAll());
+    }
+
+    resetAll() {
+        // Clear all selections
+        this.selectedSpecies = null;
+        this.selectedDrug = null;
+        this.weight = null;
+        this.weightManuallySet = false;
+        this.activeCategory = 'pain_relief';
+
+        // Reset species buttons
+        const speciesButtons = document.querySelectorAll('.species-btn');
+        speciesButtons.forEach(btn => btn.classList.remove('active'));
+
+        // Reset category buttons
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        categoryButtons.forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.dataset.category === 'pain_relief') {
+                btn.classList.add('active');
+            }
+        });
+
+        // Clear weight input
+        const weightInput = document.getElementById('weight-input');
+        weightInput.value = '';
+        this.setWeightUnit('kg');
+
+        // Clear drug search
+        const drugSearch = document.getElementById('drug-search');
+        drugSearch.value = '';
+
+        // Update UI
+        this.updateSectionVisibility();
+        this.updateSelectionInfo();
+        this.renderDrugList();
+        this.hideResult();
+        this.updateResetButtonVisibility();
+
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    updateResetButtonVisibility() {
+        const resetBtn = document.getElementById('reset-btn');
+        if (this.selectedSpecies) {
+            resetBtn.style.display = 'flex';
+        } else {
+            resetBtn.style.display = 'none';
+        }
     }
 
     updateSectionVisibility() {
@@ -218,6 +274,7 @@ class VetCalcApp {
 
                 // Update visibility - weight stays visible, categories/drugs animate out
                 this.updateSectionVisibility();
+                this.updateResetButtonVisibility();
 
                 // Scroll to weight section after selecting species
                 setTimeout(() => {
