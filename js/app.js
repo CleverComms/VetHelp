@@ -555,14 +555,14 @@ class VetCalcApp {
                 li.classList.add('active-drug');
                 this.selectedDrug = drug;
                 this.updateSelectionInfo();
-                this.updateCalculation();
+                this.updateCalculation(true); // Scroll to result when selecting a drug
             });
 
             container.appendChild(li);
         });
     }
 
-    updateCalculation() {
+    updateCalculation(shouldScroll = false) {
         if (!this.selectedSpecies || !this.selectedDrug || !this.weight) {
             this.hideResult();
             return;
@@ -574,10 +574,10 @@ class VetCalcApp {
             return;
         }
 
-        this.showResult(speciesData);
+        this.showResult(speciesData, shouldScroll);
     }
 
-    showResult(speciesData) {
+    showResult(speciesData, shouldScroll = false) {
         const resultSection = document.getElementById('result-section');
         resultSection.style.display = 'block';
 
@@ -613,10 +613,12 @@ class VetCalcApp {
         // Display notes
         this.renderNotes(speciesData);
 
-        // Scroll to result
-        setTimeout(() => {
-            resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 100);
+        // Scroll to result only when explicitly requested (e.g., when selecting a drug)
+        if (shouldScroll) {
+            setTimeout(() => {
+                resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
     }
 
     calculateDose(dose, speciesData) {
