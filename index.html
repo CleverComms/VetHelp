@@ -41,7 +41,7 @@
                         </svg>
                     </div>
                     <h1 class="splash-title">VetCalc</h1>
-                    <p class="splash-version" id="splash-version">v2.5.0</p>
+                    <p class="splash-version" id="splash-version">v2.6.0</p>
                     <div class="splash-loader">
                         <div class="preloader">
                             <span class="preloader-inner">
@@ -176,26 +176,28 @@
                         </div>
                     </div>
 
-                    <!-- Weight Input -->
-                    <div class="block-title">Weight</div>
-                    <div class="block block-strong inset">
-                        <div class="weight-stepper-container">
-                            <div class="stepper stepper-fill stepper-large stepper-round" id="weight-stepper">
-                                <div class="stepper-button-minus" id="weight-minus"></div>
-                                <div class="stepper-input-wrap">
-                                    <input type="number" id="weight-input" inputmode="decimal" placeholder="0.00" step="0.01" min="0">
+                    <!-- Weight Input (hidden until species selected) -->
+                    <div id="weight-section">
+                        <div class="block-title">Weight</div>
+                        <div class="block block-strong inset">
+                            <div class="weight-stepper-container">
+                                <div class="stepper stepper-fill stepper-large stepper-round" id="weight-stepper">
+                                    <div class="stepper-button-minus" id="weight-minus"></div>
+                                    <div class="stepper-input-wrap">
+                                        <input type="number" id="weight-input" inputmode="decimal" placeholder="0.00" step="0.01" min="0">
+                                    </div>
+                                    <div class="stepper-button-plus" id="weight-plus"></div>
                                 </div>
-                                <div class="stepper-button-plus" id="weight-plus"></div>
+                                <span class="weight-unit-label" id="weight-unit-label">kg</span>
                             </div>
-                            <span class="weight-unit-label" id="weight-unit-label">kg</span>
-                        </div>
-                        <div class="weight-presets" id="weight-presets">
-                            <!-- Populated by JavaScript -->
+                            <div class="weight-presets" id="weight-presets">
+                                <!-- Populated by JavaScript -->
+                            </div>
                         </div>
                     </div>
 
                     <!-- Drug Categories (hidden until species and weight selected) -->
-                    <div id="category-section" style="display: none;">
+                    <div id="category-section">
                         <div class="block-title">Category</div>
                         <div class="block block-strong inset no-padding">
                             <div class="category-scroll" id="drug-categories">
@@ -205,7 +207,7 @@
                     </div>
 
                     <!-- Drug Search and List (hidden until species and weight selected) -->
-                    <div id="drugs-section" style="display: none;">
+                    <div id="drugs-section">
                         <div class="block-title">Drugs</div>
                         <div class="list list-strong-ios list-outline-ios list-dividers-ios inset">
                             <ul>
@@ -258,7 +260,7 @@
 
                     <!-- Footer -->
                     <div class="block footer-block">
-                        <p class="text-align-center">VetCalc v<span id="app-version">2.5.0</span></p>
+                        <p class="text-align-center">VetCalc v<span id="app-version">2.6.0</span></p>
                         <p class="text-align-center text-color-gray">For professional veterinary use only. Always verify with product literature.</p>
                     </div>
                 </div>

@@ -72,14 +72,27 @@ class VetCalcApp {
     }
 
     updateSectionVisibility() {
+        const weightSection = document.getElementById('weight-section');
         const categorySection = document.getElementById('category-section');
         const drugsSection = document.getElementById('drugs-section');
 
-        // Show only if both species and weight are selected
-        const shouldShow = this.selectedSpecies && this.weight;
+        // Show weight section if species is selected
+        if (this.selectedSpecies) {
+            weightSection.classList.add('visible');
+        } else {
+            weightSection.classList.remove('visible');
+        }
 
-        categorySection.style.display = shouldShow ? 'block' : 'none';
-        drugsSection.style.display = shouldShow ? 'block' : 'none';
+        // Show category and drugs only if both species and weight are selected
+        const shouldShowDrugs = this.selectedSpecies && this.weight;
+
+        if (shouldShowDrugs) {
+            categorySection.classList.add('visible');
+            drugsSection.classList.add('visible');
+        } else {
+            categorySection.classList.remove('visible');
+            drugsSection.classList.remove('visible');
+        }
     }
 
     setupSpeciesSelection() {

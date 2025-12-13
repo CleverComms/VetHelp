@@ -558,6 +558,37 @@ li.active-drug {
 .inset { margin-left: 0; margin-right: 0; }
 #result-section { display: none; }
 
+/* Section Animations */
+#weight-section,
+#category-section,
+#drugs-section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    pointer-events: none;
+    max-height: 0;
+    overflow: hidden;
+}
+
+#weight-section.visible,
+#category-section.visible,
+#drugs-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    max-height: 2000px;
+    overflow: visible;
+}
+
+/* Stagger the animations */
+#category-section {
+    transition-delay: 0.1s;
+}
+
+#drugs-section {
+    transition-delay: 0.2s;
+}
+
 /* Responsive */
 @media (max-width: 380px) {
     .species-btn, .category-btn { min-width: 58px; }
