@@ -112,8 +112,8 @@ input, select, textarea {
 
 /* Reset button in selection info bar */
 .reset-btn {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     border: none;
     border-radius: 50%;
     background: rgba(0, 122, 255, 0.1);
@@ -123,13 +123,13 @@ input, select, textarea {
     justify-content: center;
     transition: all 0.2s ease-out;
     margin-left: auto;
-    margin-right: 4px;
+    align-self: center;
     flex-shrink: 0;
 }
 
 .reset-btn svg {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     color: var(--primary);
 }
 
@@ -160,10 +160,10 @@ input, select, textarea {
 .selection-info.visible {
     max-height: 100px;
     opacity: 1;
-    padding: 0 16px;
+    padding: 0 12px 0 16px;
     display: flex;
     gap: 0;
-    align-items: stretch;
+    align-items: center;
 }
 
 .selection-column {
@@ -171,26 +171,21 @@ input, select, textarea {
     flex-direction: column;
     justify-content: center;
     flex: 0 0 auto;
-    padding: 10px 20px;
+    padding: 10px 16px;
     border-right: 1px solid var(--separator);
     transition: width 0.25s ease-out, flex 0.25s ease-out;
     overflow: hidden;
-    align-self: stretch;
 }
 
 .selection-column:first-child {
     padding-left: 0;
 }
 
-.selection-column:last-child {
-    border-right: none;
-}
-
 .selection-column.hidden {
     display: none;
 }
 
-/* Remove border when it's the last visible column */
+/* Remove border when it's the last visible column before reset button */
 .selection-column.no-border {
     border-right: none;
 }
@@ -198,6 +193,7 @@ input, select, textarea {
 .selection-column-drug {
     flex: 1;
     min-width: 0;
+    border-right: none;
 }
 
 .selection-label {
