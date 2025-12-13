@@ -3,14 +3,20 @@
  * Main Application Logic with Framework7
  */
 
-// Initialize Framework7
-const app = new Framework7({
-    el: '#app',
-    name: 'VetCalc',
-    theme: 'ios',
-    colors: {
-        primary: '#007aff'
-    }
+// Wait for DOM to be ready before initializing
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Framework7
+    const f7app = new Framework7({
+        el: '#app',
+        name: 'VetCalc',
+        theme: 'ios',
+        colors: {
+            primary: '#007aff'
+        }
+    });
+
+    // Initialize VetCalc after Framework7 is ready
+    new VetCalcApp();
 });
 
 class VetCalcApp {
@@ -24,16 +30,7 @@ class VetCalcApp {
         // Species that typically use grams
         this.smallAnimals = ['hamster', 'rat', 'guinea_pig'];
 
-        this.init();
-    }
-
-    init() {
-        // Wait for DOM
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => this.setup());
-        } else {
-            this.setup();
-        }
+        this.setup();
     }
 
     setup() {
@@ -648,6 +645,3 @@ class VetCalcApp {
         resultSection.style.display = 'none';
     }
 }
-
-// Initialize app when Framework7 is ready
-const vetCalc = new VetCalcApp();
