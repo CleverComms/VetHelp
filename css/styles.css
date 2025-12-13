@@ -131,7 +131,7 @@ input, select, textarea {
 .selection-info.visible {
     max-height: 100px;
     opacity: 1;
-    padding: 10px 16px 12px;
+    padding: 0 16px;
     display: flex;
     gap: 0;
     align-items: stretch;
@@ -142,10 +142,11 @@ input, select, textarea {
     flex-direction: column;
     justify-content: center;
     flex: 0 0 auto;
-    padding: 0 20px;
+    padding: 12px 20px;
     border-right: 1px solid var(--separator);
     transition: width 0.25s ease-out, flex 0.25s ease-out;
     overflow: hidden;
+    align-self: stretch;
 }
 
 .selection-column:first-child {
