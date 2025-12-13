@@ -220,10 +220,44 @@ input, select, textarea {
 }
 
 /* Main Content */
+/* Page layout for sticky footer */
+.page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
 .page-content {
+    flex: 1;
     padding: 12px;
     max-width: 500px;
     margin: 0 auto;
+    width: 100%;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 20px 16px;
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 20px);
+    color: var(--text-tertiary);
+}
+
+.footer p {
+    margin: 0;
+}
+
+.footer .footer-warning {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--warning);
+    margin-bottom: 8px;
+}
+
+.footer .footer-version {
+    font-size: 11px;
+    opacity: 0.7;
 }
 
 /* Section Titles */
@@ -249,17 +283,6 @@ input, select, textarea {
 
 .block-strong { padding: 10px 12px; }
 .no-padding { padding: 0 !important; }
-
-/* Warning Block */
-.warning-block {
-    background: linear-gradient(135deg, rgba(255, 149, 0, 0.15) 0%, rgba(255, 204, 0, 0.15) 100%);
-    border: 1px solid rgba(255, 149, 0, 0.3);
-}
-
-.warning-block p {
-    font-size: 14px;
-    color: #996600;
-}
 
 /* Species & Category Scroll */
 .species-scroll, .category-scroll {
@@ -653,24 +676,6 @@ li.active-drug {
 .result-notes strong { display: block; margin-bottom: 4px; }
 .result-notes ul { margin: 0; padding-left: 16px; }
 
-/* Footer */
-.footer-block {
-    text-align: center;
-    padding: 16px 12px;
-    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
-}
-
-.footer-block p {
-    font-size: 12px;
-    color: var(--text-tertiary);
-    margin: 0;
-}
-
-.footer-block p + p {
-    margin-top: 2px;
-    font-size: 10px;
-}
-
 /* Update Banner - Liquid Glass */
 .update-banner {
     position: fixed;
@@ -735,7 +740,6 @@ li.active-drug {
 #result-section { display: none; }
 
 /* Section Animations */
-#warning-section,
 #weight-section,
 #category-section,
 #drugs-section {
@@ -747,7 +751,6 @@ li.active-drug {
     overflow: hidden;
 }
 
-#warning-section.visible,
 #weight-section.visible,
 #category-section.visible,
 #drugs-section.visible {
@@ -759,12 +762,8 @@ li.active-drug {
 }
 
 /* Stagger the animations */
-#warning-section {
-    transition-delay: 0s;
-}
-
 #weight-section {
-    transition-delay: 0.05s;
+    transition-delay: 0s;
 }
 
 #category-section {

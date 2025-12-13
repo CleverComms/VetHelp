@@ -73,17 +73,14 @@ class VetCalcApp {
     }
 
     updateSectionVisibility() {
-        const warningSection = document.getElementById('warning-section');
         const weightSection = document.getElementById('weight-section');
         const categorySection = document.getElementById('category-section');
         const drugsSection = document.getElementById('drugs-section');
 
-        // Show warning and weight sections if species is selected
+        // Show weight section if species is selected
         if (this.selectedSpecies) {
-            warningSection.classList.add('visible');
             weightSection.classList.add('visible');
         } else {
-            warningSection.classList.remove('visible');
             weightSection.classList.remove('visible');
         }
 
