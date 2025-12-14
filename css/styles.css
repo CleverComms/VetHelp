@@ -771,8 +771,8 @@ li.active-drug {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     color: white;
-    padding: 12px 16px;
-    padding-top: calc(env(safe-area-inset-top, 0px) + 12px);
+    padding: 20px 20px 24px;
+    padding-top: calc(env(safe-area-inset-top, 0px) + 20px);
     z-index: 10000;
     display: none;
     box-shadow: 0 4px 20px rgba(255, 59, 48, 0.3);
@@ -780,27 +780,28 @@ li.active-drug {
 }
 
 .update-title {
-    font-size: 15px;
-    margin: 0 0 4px;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 8px;
 }
 
 .update-text {
-    font-size: 13px;
-    margin: 0 0 12px;
+    font-size: 17px;
+    margin: 0 0 20px;
     opacity: 0.9;
 }
 
 .update-buttons {
     display: flex;
-    gap: 8px;
+    gap: 12px;
 }
 
 .button {
     flex: 1;
-    padding: 10px 14px;
+    padding: 14px 18px;
     border: none;
-    border-radius: 12px;
-    font-size: 14px;
+    border-radius: 14px;
+    font-size: 17px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease-out;
