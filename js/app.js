@@ -282,10 +282,10 @@ class VetCalcApp {
                 // Update visibility - weight stays visible, categories/drugs animate out
                 this.updateSectionVisibility();
 
-                // Scroll to weight section after selecting species
+                // Scroll to weight section after selecting species (wait for animation)
                 setTimeout(() => {
                     this.scrollToSection('weight-section');
-                }, 100);
+                }, 400);
             });
         });
     }
