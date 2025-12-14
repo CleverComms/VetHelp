@@ -304,10 +304,15 @@
     <script>
         // Register Service Worker
         if ('serviceWorker' in navigator) {
+            let swRegistration = null;
+
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('sw.js')
                     .then(registration => {
                         console.log('ServiceWorker registered:', registration.scope);
+                        swRegistration = registration;
+
+                        // Check for updates on load
                         registration.update();
 
                         registration.addEventListener('updatefound', () => {
@@ -320,6 +325,13 @@
                         });
                     })
                     .catch(err => console.log('ServiceWorker registration failed:', err));
+            });
+
+            // Also check for updates when app becomes visible (user returns to PWA)
+            document.addEventListener('visibilitychange', () => {
+                if (document.visibilityState === 'visible' && swRegistration) {
+                    swRegistration.update();
+                }
             });
         }
 
