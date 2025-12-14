@@ -147,7 +147,7 @@ input, select, textarea {
     position: fixed;
     left: 0;
     right: 0;
-    top: calc(env(safe-area-inset-top, 0px) + 46px); /* Below header */
+    top: calc(env(safe-area-inset-top, 0px) + 50px); /* Below header */
     z-index: 99;
     border-bottom: 1px solid rgba(0, 122, 255, 0.15);
     box-shadow: 0 2px 12px rgba(0, 122, 255, 0.08);
