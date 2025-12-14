@@ -128,16 +128,9 @@ class VetCalcApp {
         const section = document.getElementById(sectionId);
         if (!section) return;
 
-        // Calculate offset for fixed header (~46px) and info bar (~58px)
-        const headerHeight = 46;
-        const infoBarHeight = this.selectedSpecies ? 58 : 0;
-        const offset = headerHeight + infoBarHeight;
-
-        const sectionTop = section.getBoundingClientRect().top + window.pageYOffset;
-        window.scrollTo({
-            top: sectionTop - offset,
-            behavior: 'smooth'
-        });
+        // Simple approach: scroll section to top, accounting for fixed header + info
+        section.style.scrollMarginTop = '116px';
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     updateSectionVisibility() {
