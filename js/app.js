@@ -55,12 +55,6 @@ class VetCalcApp {
             splashVersionEl.textContent = APP_VERSION;
         }
 
-        // Set update banner version
-        const updateVersionEl = document.getElementById('update-version');
-        if (updateVersionEl) {
-            updateVersionEl.textContent = APP_VERSION;
-        }
-
         // Setup event listeners
         this.setupSpeciesSelection();
         this.setupWeightInput();
