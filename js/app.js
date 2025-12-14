@@ -122,10 +122,16 @@ class VetCalcApp {
         const section = document.getElementById(sectionId);
         if (!section) return;
 
-        // Get position and scroll - accounting for fixed header + info bar + safe areas
+        // Calculate offset dynamically from actual fixed elements
+        const header = document.querySelector('.header');
+        const infoBar = document.getElementById('selection-info');
+        const headerHeight = header ? header.offsetHeight : 0;
+        const infoBarHeight = infoBar ? infoBar.offsetHeight : 0;
+        const offset = headerHeight + infoBarHeight + 12; // +12 for padding
+
         const rect = section.getBoundingClientRect();
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const targetY = rect.top + scrollTop - 140;
+        const targetY = rect.top + scrollTop - offset;
 
         window.scrollTo({
             top: Math.max(0, targetY),
