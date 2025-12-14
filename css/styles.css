@@ -160,7 +160,7 @@ input, select, textarea {
 .selection-info.visible {
     max-height: 100px;
     opacity: 1;
-    padding: 10px 16px;
+    padding: 10px 12px;
     display: flex;
     gap: 0;
     align-items: center;
