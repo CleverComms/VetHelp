@@ -35,8 +35,6 @@ html {
     font-size: 16px;
     touch-action: pan-x pan-y;
     -ms-touch-action: pan-x pan-y;
-    scroll-behavior: smooth;
-    scroll-snap-type: y proximity;
 }
 
 body {
@@ -827,15 +825,6 @@ li.active-drug {
 .inset { margin-left: 0; margin-right: 0; }
 #result-section { display: none; }
 
-/* Scroll snap for all main sections */
-#species-section,
-#weight-section.visible,
-#category-section.visible,
-#drugs-section.visible,
-#result-section {
-    scroll-snap-align: start;
-    scroll-margin-top: 104px; /* Header 46px + info bar 58px */
-}
 
 /* Section Animations */
 #weight-section,
