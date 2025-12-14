@@ -35,7 +35,6 @@ html {
     font-size: 16px;
     touch-action: pan-x pan-y;
     -ms-touch-action: pan-x pan-y;
-    scroll-snap-type: y proximity;
     scroll-behavior: smooth;
 }
 
@@ -847,13 +846,6 @@ li.active-drug {
     pointer-events: auto;
     max-height: 2000px;
     overflow: visible;
-    scroll-snap-align: start;
-    scroll-margin-top: 120px; /* Header + info bar + padding */
-}
-
-#result-section {
-    scroll-snap-align: start;
-    scroll-margin-top: 120px;
 }
 
 /* Stagger the animations */
