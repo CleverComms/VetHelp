@@ -118,6 +118,23 @@ class VetCalcApp {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    scrollToSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        if (!section) return;
+
+        // Calculate offset for fixed header (~46px) and info bar (~58px) + some padding
+        const headerHeight = 46;
+        const infoBarHeight = this.selectedSpecies ? 58 : 0;
+        const padding = 12;
+        const offset = headerHeight + infoBarHeight + padding;
+
+        const sectionTop = section.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({
+            top: sectionTop - offset,
+            behavior: 'smooth'
+        });
+    }
+
     updateSectionVisibility() {
         const weightSection = document.getElementById('weight-section');
         const categorySection = document.getElementById('category-section');
@@ -267,7 +284,7 @@ class VetCalcApp {
 
                 // Scroll to weight section after selecting species
                 setTimeout(() => {
-                    document.getElementById('weight-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    this.scrollToSection('weight-section');
                 }, 100);
             });
         });
@@ -344,7 +361,7 @@ class VetCalcApp {
                 // Scroll to categories on first weight update
                 if (!wasManuallySet) {
                     setTimeout(() => {
-                        document.getElementById('category-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        this.scrollToSection('category-section');
                     }, 500);
                 }
             } else {
@@ -379,7 +396,7 @@ class VetCalcApp {
             // Scroll to categories on first weight update (wait for section animations)
             if (!wasManuallySet) {
                 setTimeout(() => {
-                    document.getElementById('category-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    this.scrollToSection('category-section');
                 }, 500);
             }
         };
@@ -456,7 +473,7 @@ class VetCalcApp {
                 // Scroll to categories on first weight update
                 if (!wasManuallySet) {
                     setTimeout(() => {
-                        document.getElementById('category-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        this.scrollToSection('category-section');
                     }, 500);
                 }
             } else {
@@ -513,7 +530,7 @@ class VetCalcApp {
                 // Scroll to categories on first weight selection
                 if (!wasManuallySet) {
                     setTimeout(() => {
-                        document.getElementById('category-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        this.scrollToSection('category-section');
                     }, 500);
                 }
             });
@@ -553,7 +570,7 @@ class VetCalcApp {
                 this.renderDrugList();
                 // Scroll to drugs section
                 setTimeout(() => {
-                    document.getElementById('drugs-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    this.scrollToSection('drugs-section');
                 }, 100);
             });
 
@@ -691,7 +708,7 @@ class VetCalcApp {
         // Scroll to result only when explicitly requested (e.g., when selecting a drug)
         if (shouldScroll) {
             setTimeout(() => {
-                resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                this.scrollToSection('result-section');
             }, 100);
         }
     }
