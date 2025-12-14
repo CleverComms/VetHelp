@@ -834,7 +834,7 @@ li.active-drug {
 #drugs-section.visible,
 #result-section {
     scroll-snap-align: start;
-    scroll-margin-top: 120px;
+    scroll-margin-top: 104px; /* Header 46px + info bar 58px */
 }
 
 /* Section Animations */

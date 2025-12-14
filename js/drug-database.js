@@ -8,7 +8,7 @@
  * Dosage sources: BSAVA Small Animal Formulary, VMD product literature
  */
 
-const APP_VERSION = '2.15.17';
+const APP_VERSION = '2.15.18';
 
 const DRUG_DATABASE = {
     // Drug categories with Lucide icons
