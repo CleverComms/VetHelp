@@ -43,7 +43,7 @@ class VetCalcApp {
             }
         }, 1500);
 
-        // Set version
+        // Set version in footer
         const versionEl = document.getElementById('app-version');
         if (versionEl) {
             versionEl.textContent = APP_VERSION;
@@ -52,7 +52,13 @@ class VetCalcApp {
         // Set splash version
         const splashVersionEl = document.getElementById('splash-version');
         if (splashVersionEl) {
-            splashVersionEl.textContent = 'v' + APP_VERSION;
+            splashVersionEl.textContent = APP_VERSION;
+        }
+
+        // Set update banner version
+        const updateVersionEl = document.getElementById('update-version');
+        if (updateVersionEl) {
+            updateVersionEl.textContent = APP_VERSION;
         }
 
         // Setup event listeners
