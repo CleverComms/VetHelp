@@ -142,8 +142,11 @@ class VetCalcApp {
         // Show weight section if species is selected
         if (this.selectedSpecies) {
             weightSection.classList.add('visible');
+            // Add scroll padding as soon as species is selected so sections can scroll to top
+            pageContent.classList.add('has-scroll-padding');
         } else {
             weightSection.classList.remove('visible');
+            pageContent.classList.remove('has-scroll-padding');
         }
 
         // Show category and drugs only if species selected AND weight manually updated
@@ -152,13 +155,9 @@ class VetCalcApp {
         if (shouldShowDrugs) {
             categorySection.classList.add('visible');
             drugsSection.classList.add('visible');
-            // Add scroll padding when categories/drugs are shown
-            pageContent.classList.add('has-scroll-padding');
         } else {
             categorySection.classList.remove('visible');
             drugsSection.classList.remove('visible');
-            // Remove scroll padding when only species/weight visible
-            pageContent.classList.remove('has-scroll-padding');
         }
     }
 
