@@ -128,9 +128,15 @@ class VetCalcApp {
         const section = document.getElementById(sectionId);
         if (!section) return;
 
-        // Simple approach: scroll section to top, accounting for fixed header + info
-        section.style.scrollMarginTop = '116px';
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Get position and scroll - accounting for fixed header (46) + info bar (58) + spacer (58)
+        const rect = section.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const targetY = rect.top + scrollTop - 116;
+
+        window.scrollTo({
+            top: Math.max(0, targetY),
+            behavior: 'smooth'
+        });
     }
 
     updateSectionVisibility() {
